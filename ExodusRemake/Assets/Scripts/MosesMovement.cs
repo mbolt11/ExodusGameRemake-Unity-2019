@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MosesController : MonoBehaviour 
+public class MosesMovement : MonoBehaviour 
 {
-    public float speed = 2;
+    public float speed = 3;
 
     // Use this for initialization
 	void Start () 
