@@ -4,20 +4,43 @@ using UnityEngine;
 
 public class MosesMovement : MonoBehaviour 
 {
-    public float speed = 3;
+    public float speed;
+    private string lastMove;
 
-    // Use this for initialization
-	void Start () 
+    private void Start()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
+        lastMove = "RIGHT";
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         //His movement based on arrow keys
         float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
         float moveVertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
-        transform.Translate(moveHorizontal, moveVertical, 0f); 
-	}
+        transform.Translate(moveHorizontal, moveVertical, 0f);
+        if (moveVertical > 0)
+        {
+            lastMove = "UP";
+        }
+        else if (moveVertical < 0)
+        {
+            lastMove = "DOWN";
+            //Debug.Log("down");
+        }
+        
+        if(moveHorizontal > 0)
+        {
+            lastMove = "RIGHT";
+        }
+        else if(moveHorizontal < 0)
+        {
+            lastMove = "LEFT";
+        }       
+    }
+
+    public string getLastMove()
+    {
+        return lastMove;
+    }
 }
