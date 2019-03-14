@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Manna
+  - Dirt
+  - Soldier
+  - Treasure
+  - Blue Block
+  - Wood Block
   layers:
   - Default
   - TransparentFX
