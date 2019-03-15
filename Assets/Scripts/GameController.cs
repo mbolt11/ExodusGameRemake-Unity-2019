@@ -6,14 +6,14 @@ using UnityEngine;
 //It handles the stats that carry over from level to level, but not the ones that are level-specific
 public class GameController : MonoBehaviour
 {
-    public GameController controller;
+    private static GameController controller;
 
     private int MosesLives;
     private int points;
     private int currentLevel;
 
     //Singleton
-    public GameController GetController()
+    public static GameController GetController()
     {
         if(controller == null)
         {
@@ -26,13 +26,30 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         //Initialize variables at beginning of game
         MosesLives = 5;
         points = 0;
         currentLevel = 1;
-        
+    }
+
+    //Stat accessors
+    public int getPoints()
+    {
+        return points;
+    }
+
+    public int getLives()
+    {
+        return MosesLives;
+    }
+
+    public int getLevelNum()
+    {
+        return currentLevel;
     }
 
     //Stat updaters

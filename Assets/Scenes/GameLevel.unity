@@ -1140,7 +1140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4599312398620000, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -4.33
       objectReference: {fileID: 0}
     - target: {fileID: 4599312398620000, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1199,6 +1199,11 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 0.40628433
       objectReference: {fileID: 0}
+    - target: {fileID: 114630536243697280, guid: cb7c5a577493b4386bfbd6edc6db90a3,
+        type: 3}
+      propertyPath: levelControl
+      value: 
+      objectReference: {fileID: 1983299338}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
 --- !u!1001 &223041227
@@ -2837,7 +2842,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moses: {fileID: 635006240}
-  xOffset: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -3790,8 +3794,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -19, y: 1}
-  m_SizeDelta: {x: 220, y: 36}
+  m_AnchoredPosition: {x: -3, y: 1}
+  m_SizeDelta: {x: 250, y: 36}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &642009052
 MonoBehaviour:
@@ -3826,7 +3830,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Treasure:'
+  m_Text: 'Treasure: 0/5'
 --- !u!222 &642009053
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3869,7 +3873,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 191, y: 37}
+  m_AnchoredPosition: {x: 222, y: 37}
   m_SizeDelta: {x: 200, y: 36}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &661624363
@@ -3905,7 +3909,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lives: '
+  m_Text: 'Lives: 5'
 --- !u!222 &661624364
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4377,7 +4381,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 191, y: 1}
+  m_AnchoredPosition: {x: 223, y: 1}
   m_SizeDelta: {x: 200, y: 36}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &726785977
@@ -4413,7 +4417,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Time:'
+  m_Text: 'Time: 300'
 --- !u!222 &726785978
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6000,7 +6004,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Score:'
+  m_Text: 'Score: 0'
 --- !u!222 &1114287586
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7166,7 +7170,7 @@ GameObject:
   - component: {fileID: 1322286069}
   - component: {fileID: 1322286068}
   m_Layer: 5
-  m_Name: Level 1
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10168,6 +10172,7 @@ GameObject:
   - component: {fileID: 1457866576}
   - component: {fileID: 1457866575}
   - component: {fileID: 1457866574}
+  - component: {fileID: 1457866578}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -10260,6 +10265,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1457866578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457866573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f06938f99a7b410ea2021c857381b86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: {fileID: 1322286068}
+  score: {fileID: 1114287585}
+  lives: {fileID: 661624363}
+  manna: {fileID: 1619777670}
+  treasure: {fileID: 642009052}
+  time: {fileID: 726785977}
+  levelControl: {fileID: 1983299338}
 --- !u!1001 &1476851201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10819,8 +10843,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -19, y: 37}
-  m_SizeDelta: {x: 220, y: 36}
+  m_AnchoredPosition: {x: -3, y: 37}
+  m_SizeDelta: {x: 250, y: 36}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1619777670
 MonoBehaviour:
@@ -10855,7 +10879,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Manna:'
+  m_Text: 'Manna: 0/82'
 --- !u!222 &1619777671
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11799,7 +11823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f43278c287e40bd99bdf12b2b0be0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
 --- !u!4 &1906794192
 Transform:
   m_ObjectHideFlags: 0

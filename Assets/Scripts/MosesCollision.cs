@@ -2,31 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MosesCollision : MonoBehaviour 
+public class MosesCollision : MonoBehaviour
 {
-    public GameController gc;
-    public Level1Control lc; 
+    public GameObject levelControl;
+
+    void Start()
+    {
+
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         //For colliding with manna
-        if(other.gameObject.tag == "Manna")
+        if (other.gameObject.tag == "Manna")
         {
             Destroy(other.gameObject);
-            //Add code to update Moses' manna count
+
+            //Update manna count
+            levelControl.GetComponent<Level1Control>().addManna();
         }
 
         //Picking up treasure boxes
-        if(other.collider.gameObject.tag == "Treasure")
+        if (other.collider.gameObject.tag == "Treasure")
         {
-            //Code to add to what Moses has collected
-
             Destroy(other.gameObject);
+
+            //Update count
+            levelControl.GetComponent<Level1Control>().addTreasure();
+
+            //Treasure chests are worth 1000 points
+            GameController.GetController().addPoints(1000);
         }
 
         //For colliding with enemy- dies
-        if(other.gameObject.tag == "Soldier")
+        if (other.gameObject.tag == "Soldier")
         {
-            //He dies... change sprites
+            //Subtract a life and reset level
+            GameController.GetController().MosesDied();
+            levelControl.GetComponent<Level1Control>().ResetLevel();
+
+            //Visuals-- change sprite, wait a few secs, reload?
         }
     }
 }
+
+

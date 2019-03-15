@@ -23,6 +23,17 @@ public class Level1Control : MonoBehaviour
         levelComplete = false;
     }
 
+    //Accessors for stats to go in canvas
+    public string getMannaCollected()
+    {
+        return manna.ToString() + "/82";
+    }
+
+    public string getTreasureCollected()
+    {
+        return treasure.ToString() + "/5";
+    }
+
     //When you collect manna
     public void addManna()
     {
@@ -56,5 +67,16 @@ public class Level1Control : MonoBehaviour
     private void RevealExit()
     {
         //Reveal the exit
+    }
+
+    public void ResetLevel()
+    {
+        //When the player dies, the level resets
+        manna = 0;
+        mannaQuotaMet = false;
+        treasure = 0;
+        treasureQuotaMet = false;
+        startTime = 300;
+        levelComplete = false;
     }
 }
