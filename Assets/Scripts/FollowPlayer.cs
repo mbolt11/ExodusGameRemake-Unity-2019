@@ -5,11 +5,11 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public Transform moses;
-    public float xOffset, yOffset;
+    public float xOffset;
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(moses.position.x + xOffset, moses.position.y + yOffset, -10);
+        transform.position = new Vector3(moses.position.x + xOffset, transform.position.y, -10);
     }
 }
