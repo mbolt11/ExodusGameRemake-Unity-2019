@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MosesCollision : MonoBehaviour 
 {
+    public GameController gc;
+    public Level1Control lc; 
     private void OnCollisionEnter2D(Collision2D other)
     {
         //For colliding with manna
