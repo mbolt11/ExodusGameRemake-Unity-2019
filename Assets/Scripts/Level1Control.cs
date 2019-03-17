@@ -12,6 +12,8 @@ public class Level1Control : MonoBehaviour
     private int startTime;
     private bool levelComplete;
 
+    public GameObject canvas;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,8 @@ public class Level1Control : MonoBehaviour
     {
         manna++;
 
+        canvas.GetComponent<StatBoard>().UpdateManna();
+
         if (manna >= 82)
             mannaQuotaMet = true;
     }
@@ -47,6 +51,8 @@ public class Level1Control : MonoBehaviour
     public void addTreasure()
     {
         treasure++;
+
+        canvas.GetComponent<StatBoard>().UpdateTreasure();
 
         if (treasure >= 5)
             treasureQuotaMet = true;

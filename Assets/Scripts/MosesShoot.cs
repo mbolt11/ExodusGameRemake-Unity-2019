@@ -42,7 +42,7 @@ public class MosesShoot : MonoBehaviour
                 ySpeed = 0;
             }
 
-            Debug.Log("Speed: " + xSpeed + "," + ySpeed);
+            //Debug.Log("Speed: " + xSpeed + "," + ySpeed);
             Rigidbody2D wordInstance = Instantiate(word, direction.position, Quaternion.Euler(new Vector3(0f,0f,0f))) as Rigidbody2D;
             wordInstance.velocity = new Vector2(xSpeed, ySpeed);
         }

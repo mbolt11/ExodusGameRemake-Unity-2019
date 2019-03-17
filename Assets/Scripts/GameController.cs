@@ -8,9 +8,11 @@ public class GameController : MonoBehaviour
 {
     private static GameController controller;
 
-    private int MosesLives;
+    public GameObject canvas;
+
+    private int MosesLives = 5;
     private int points;
-    private int currentLevel;
+    private int currentLevel = 1;
 
     //Singleton
     public static GameController GetController()
@@ -28,7 +30,11 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this.gameObject);
+
+        controller = GetController();
+
+        canvas = FindObjectOfType<Canvas>().gameObject;
 
         //Initialize variables at beginning of game
         MosesLives = 5;
@@ -56,11 +62,15 @@ public class GameController : MonoBehaviour
     public void MosesDied()
     {
         MosesLives--;
+
+        canvas.GetComponent<StatBoard>().UpdateLives();
     }
 
     public void addPoints(int points_in)
     {
         points += points_in;
+
+        canvas.GetComponent<StatBoard>().UpdateScore();
     }
 
 }

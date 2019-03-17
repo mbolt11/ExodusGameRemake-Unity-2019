@@ -23,12 +23,32 @@ public class StatBoard : MonoBehaviour
         lives.text = "Lives: " + GameController.GetController().getLives();
         manna.text = "Manna: " + levelControl.GetComponent<Level1Control>().getMannaCollected();
         treasure.text = "Treasure: " + levelControl.GetComponent<Level1Control>().getTreasureCollected();
-        time.text = "300";
+        time.text = "Time: 300";
     }
 
-    // Update is called once per frame
-    void Update()
+    //Methods to update
+    public void UpdateLevel()
     {
-        
+        level.text = "Level " + GameController.GetController().getLevelNum();
+    }
+
+    public void UpdateScore()
+    {
+        score.text = "Score: " + GameController.GetController().getPoints();
+    }
+
+    public void UpdateLives()
+    {
+        lives.text = "Lives: " + GameController.GetController().getLives();
+    }
+
+    public void UpdateManna()
+    {
+        manna.text = "Manna: " + levelControl.GetComponent<Level1Control>().getMannaCollected();
+    }
+
+    public void UpdateTreasure()
+    {
+        treasure.text = "Treasure: " + levelControl.GetComponent<Level1Control>().getTreasureCollected();
     }
 }
