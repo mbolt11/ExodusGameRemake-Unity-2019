@@ -8,7 +8,9 @@ public class GameController : MonoBehaviour
 {
     private static GameController controller;
 
-    public GameObject canvas;
+    //this kept throwing a null pointer, so I had to have it be re-found everytime
+    //something was called on the canvas object
+    private GameObject canvas;
 
     private int MosesLives = 5;
     private int points;
@@ -34,7 +36,8 @@ public class GameController : MonoBehaviour
 
         controller = GetController();
 
-        canvas = FindObjectOfType<Canvas>().gameObject;
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
+        //Debug.Log("Find? " +canvas);
 
         //Initialize variables at beginning of game
         MosesLives = 5;
@@ -62,14 +65,14 @@ public class GameController : MonoBehaviour
     public void MosesDied()
     {
         MosesLives--;
-
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
         canvas.GetComponent<StatBoard>().UpdateLives();
     }
 
     public void addPoints(int points_in)
     {
         points += points_in;
-
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
         canvas.GetComponent<StatBoard>().UpdateScore();
     }
 

@@ -10,6 +10,8 @@ TagManager:
   - Treasure
   - Blue Block
   - Wood Block
+  - Canvas
+  - Controller
   layers:
   - Default
   - TransparentFX
