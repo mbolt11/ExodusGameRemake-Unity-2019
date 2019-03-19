@@ -12,6 +12,7 @@ TagManager:
   - Wood Block
   - Canvas
   - Controller
+  - Moses
   layers:
   - Default
   - TransparentFX

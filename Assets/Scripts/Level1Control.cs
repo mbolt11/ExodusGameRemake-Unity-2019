@@ -14,6 +14,12 @@ public class Level1Control : MonoBehaviour
 
     public GameObject canvas;
 
+    private void Awake()
+    {
+        //This calls the methods to reinitialize gameobjects in GameController when the scene is reloaded
+        GameController.controller.InitializeGameObjects();
+    }
+
     // Start is called before the first frame update
     void Start()
     {

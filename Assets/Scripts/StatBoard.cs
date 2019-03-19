@@ -15,16 +15,16 @@ public class StatBoard : MonoBehaviour
     public Text message;
 
     public GameObject levelControl;
-    public GameObject gameControl;
+    //public GameObject gameControl;
 
     // Start is called before the first frame update
     void Start()
     {
-        message.enabled = false;
+        message.gameObject.SetActive(false);
 
-        level.text = "Level " + gameControl.GetComponent<GameController>().getLevelNum();
-        score.text = "Score: " + gameControl.GetComponent<GameController>().getPoints();
-        lives.text = "Lives: " + gameControl.GetComponent<GameController>().getLives();
+        level.text = "Level " + GameController.controller.getLevelNum();
+        score.text = "Score: " + GameController.controller.getPoints();
+        lives.text = "Lives: " + GameController.controller.getLives();
         manna.text = "Manna: " + levelControl.GetComponent<Level1Control>().getMannaCollected();
         treasure.text = "Treasure: " + levelControl.GetComponent<Level1Control>().getTreasureCollected();
         time.text = "Time: 300";
@@ -33,17 +33,17 @@ public class StatBoard : MonoBehaviour
     //Methods to update
     public void UpdateLevel()
     {
-        level.text = "Level " + gameControl.GetComponent<GameController>().getLevelNum();
+        level.text = "Level " + GameController.controller.getLevelNum();
     }
 
     public void UpdateScore()
     {
-        score.text = "Score: " + gameControl.GetComponent<GameController>().getPoints();
+        score.text = "Score: " + GameController.controller.getPoints();
     }
 
     public void UpdateLives()
     {
-        lives.text = "Lives: " + gameControl.GetComponent<GameController>().getLives();
+        lives.text = "Lives: " + GameController.controller.getLives();
     }
 
     public void UpdateManna()
@@ -59,6 +59,6 @@ public class StatBoard : MonoBehaviour
     public void UpdateMessage(string message_in)
     {
         message.text = message_in;
-        message.enabled = true;
+        message.gameObject.SetActive(true);
     }
 }
