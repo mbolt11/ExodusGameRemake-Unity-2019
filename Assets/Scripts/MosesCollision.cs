@@ -5,6 +5,7 @@ using UnityEngine;
 public class MosesCollision : MonoBehaviour
 {
     public GameObject levelControl;
+    public GameObject gameControl;
 
     void Start()
     {
@@ -31,14 +32,14 @@ public class MosesCollision : MonoBehaviour
             levelControl.GetComponent<Level1Control>().addTreasure();
 
             //Treasure chests are worth 1000 points
-            GameController.GetController().addPoints(1000);
+            gameControl.GetComponent<GameController>().addPoints(1000);
         }
 
         //For colliding with enemy- dies
         if (other.gameObject.tag == "Soldier")
         {
             //Subtract a life and reset level
-            GameController.GetController().MosesDied();
+            gameControl.GetComponent<GameController>().MosesDied();
             levelControl.GetComponent<Level1Control>().ResetLevel();
 
             //Visuals-- change sprite, wait a few secs, reload?

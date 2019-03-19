@@ -1,42 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //This script will not be destroyed when loading between different levels
 //It handles the stats that carry over from level to level, but not the ones that are level-specific
 public class GameController : MonoBehaviour
 {
-    private static GameController controller;
-
-    //this kept throwing a null pointer, so I had to have it be re-found everytime
-    //something was called on the canvas object
+    //private static GameController controller;
     private GameObject canvas;
+    private int currentSceneNum;
 
     private int MosesLives = 5;
     private int points;
     private int currentLevel = 1;
 
     //Singleton
-    public static GameController GetController()
+    /*public static GameController GetController()
     {
-        if(controller == null)
-        {
-            controller = new GameController();
-            return controller;
-        }
-        else
-        {
-            return controller;
-        }
-    }
+        return controller;
+    }*/
 
     void Awake()
     {
+        //controller = gameObject.AddComponent<GameController>();
+
         DontDestroyOnLoad(this.gameObject);
 
-        controller = GetController();
+        currentSceneNum = SceneManager.GetActiveScene().buildIndex;
 
-        canvas = GameObject.FindGameObjectWithTag("Canvas");
+        //canvas = GameObject.FindGameObjectWithTag("Canvas");
         //Debug.Log("Find? " +canvas);
 
         //Initialize variables at beginning of game
@@ -64,9 +57,15 @@ public class GameController : MonoBehaviour
     //Stat updaters
     public void MosesDied()
     {
+        //Update the lives count
         MosesLives--;
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         canvas.GetComponent<StatBoard>().UpdateLives();
+
+        //Print message then reload the scene
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
+        canvas.GetComponent<StatBoard>().UpdateMessage("You died!");
+        StartCoroutine(ReloadSceneOnDeath());
     }
 
     public void addPoints(int points_in)
@@ -76,4 +75,10 @@ public class GameController : MonoBehaviour
         canvas.GetComponent<StatBoard>().UpdateScore();
     }
 
+    //Coroutine to be called when Moses dies and need to reload scene
+    private IEnumerator ReloadSceneOnDeath()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(currentSceneNum);
+    }
 }

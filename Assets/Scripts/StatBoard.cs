@@ -12,15 +12,19 @@ public class StatBoard : MonoBehaviour
     public Text manna;
     public Text treasure;
     public Text time;
+    public Text message;
 
     public GameObject levelControl;
+    public GameObject gameControl;
 
     // Start is called before the first frame update
     void Start()
     {
-        level.text = "Level " + GameController.GetController().getLevelNum();
-        score.text = "Score: " + GameController.GetController().getPoints();
-        lives.text = "Lives: " + GameController.GetController().getLives();
+        message.enabled = false;
+
+        level.text = "Level " + gameControl.GetComponent<GameController>().getLevelNum();
+        score.text = "Score: " + gameControl.GetComponent<GameController>().getPoints();
+        lives.text = "Lives: " + gameControl.GetComponent<GameController>().getLives();
         manna.text = "Manna: " + levelControl.GetComponent<Level1Control>().getMannaCollected();
         treasure.text = "Treasure: " + levelControl.GetComponent<Level1Control>().getTreasureCollected();
         time.text = "Time: 300";
@@ -29,17 +33,17 @@ public class StatBoard : MonoBehaviour
     //Methods to update
     public void UpdateLevel()
     {
-        level.text = "Level " + GameController.GetController().getLevelNum();
+        level.text = "Level " + gameControl.GetComponent<GameController>().getLevelNum();
     }
 
     public void UpdateScore()
     {
-        score.text = "Score: " + GameController.GetController().getPoints();
+        score.text = "Score: " + gameControl.GetComponent<GameController>().getPoints();
     }
 
     public void UpdateLives()
     {
-        lives.text = "Lives: " + GameController.GetController().getLives();
+        lives.text = "Lives: " + gameControl.GetComponent<GameController>().getLives();
     }
 
     public void UpdateManna()
@@ -50,5 +54,11 @@ public class StatBoard : MonoBehaviour
     public void UpdateTreasure()
     {
         treasure.text = "Treasure: " + levelControl.GetComponent<Level1Control>().getTreasureCollected();
+    }
+
+    public void UpdateMessage(string message_in)
+    {
+        message.text = message_in;
+        message.enabled = true;
     }
 }
