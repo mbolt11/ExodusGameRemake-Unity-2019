@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 212010396169281364}
   - component: {fileID: 50086296404018924}
   - component: {fileID: 61222757670353862}
+  - component: {fileID: 3195403814762510986}
   m_Layer: 0
   m_Name: Jar of Manna
   m_TagString: Manna
@@ -128,3 +129,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.375, y: 0.45833334}
   m_EdgeRadius: 0
+--- !u!114 &3195403814762510986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023385439452176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75b1f6c4ba7f4f60ac8cdbae211dd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

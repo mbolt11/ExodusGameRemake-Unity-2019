@@ -61,4 +61,9 @@ public class StatBoard : MonoBehaviour
         message.text = message_in;
         message.gameObject.SetActive(true);
     }
+
+    public void UpdateTime()
+    {
+        time.text = "Time: " + levelControl.GetComponent<Level1Control>().getTime();
+    }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8829122400026439616}
   - component: {fileID: 4316166948758429491}
   - component: {fileID: 900792185775854791}
+  - component: {fileID: 6365252108825495945}
   m_Layer: 0
   m_Name: DirtyDirt
   m_TagString: Dirt
@@ -106,3 +107,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6365252108825495945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8237269058370083891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75b1f6c4ba7f4f60ac8cdbae211dd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treasure: {fileID: 0}

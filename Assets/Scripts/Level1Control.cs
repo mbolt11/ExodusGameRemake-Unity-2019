@@ -9,10 +9,11 @@ public class Level1Control : MonoBehaviour
     private bool mannaQuotaMet;
     private int treasure;
     private bool treasureQuotaMet;
-    private int startTime;
+    private int clockTime;
     private bool levelComplete;
 
     public GameObject canvas;
+    public GameObject finish;
 
     private void Awake()
     {
@@ -27,8 +28,12 @@ public class Level1Control : MonoBehaviour
         mannaQuotaMet = false;
         treasure = 0;
         treasureQuotaMet = false;
-        startTime = 300;
+        clockTime = 300;
         levelComplete = false;
+        finish.SetActive(false);
+
+        //The clock countdown
+        StartCoroutine(Countdown());
     }
 
     //Accessors for stats to go in canvas
@@ -42,12 +47,21 @@ public class Level1Control : MonoBehaviour
         return treasure.ToString() + "/5";
     }
 
+    public string getTime()
+    {
+        return clockTime.ToString();
+    }
+
     //When you collect manna
     public void addManna()
     {
+        //Add to the manna count and add 100 points
         manna++;
+        GameController.controller.addPoints(100);
 
+        //Update the canvas
         canvas.GetComponent<StatBoard>().UpdateManna();
+        canvas.GetComponent<StatBoard>().UpdateScore();
 
         if (manna >= 82)
             mannaQuotaMet = true;
@@ -56,9 +70,13 @@ public class Level1Control : MonoBehaviour
     //When you collect treasure (equal to question boxes in DOS game)
     public void addTreasure()
     {
+        //Treasure chests are worth 1000 points
         treasure++;
+        GameController.controller.addPoints(1000);
 
+        //Update canvas
         canvas.GetComponent<StatBoard>().UpdateTreasure();
+        canvas.GetComponent<StatBoard>().UpdateScore();
 
         if (treasure >= 5)
             treasureQuotaMet = true;
@@ -66,7 +84,7 @@ public class Level1Control : MonoBehaviour
 
     private void Update()
     {
-        if(mannaQuotaMet && treasureQuotaMet)
+        if (mannaQuotaMet && treasureQuotaMet)
         {
             RevealExit();
             mannaQuotaMet = false;
@@ -79,16 +97,18 @@ public class Level1Control : MonoBehaviour
     private void RevealExit()
     {
         //Reveal the exit
+        finish.SetActive(true);
     }
 
-    public void ResetLevel()
+    private IEnumerator Countdown()
     {
-        //When the player dies, the level resets
-        manna = 0;
-        mannaQuotaMet = false;
-        treasure = 0;
-        treasureQuotaMet = false;
-        startTime = 300;
-        levelComplete = false;
+        while(clockTime > 0)
+        {
+            yield return new WaitForSeconds(1f);
+
+            //Decrement time and update the canvas
+            clockTime--;
+            canvas.GetComponent<StatBoard>().UpdateTime();
+        }
     }
 }

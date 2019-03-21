@@ -14,7 +14,10 @@ public class WordBehavior : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag.Equals("Dirt"))
+        {
+            other.gameObject.GetComponent<HidingTreasure>().showTreasure();
             Destroy(other.gameObject);
+        }
 
         if (other.gameObject.tag.Equals("Soldier"))
             other.gameObject.GetComponent<EnemyHealth>().WordHit();

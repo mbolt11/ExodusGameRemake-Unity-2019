@@ -17,6 +17,7 @@ public class MosesCollision : MonoBehaviour
         //For colliding with manna
         if (other.gameObject.tag == "Manna")
         {
+            other.gameObject.GetComponent<HidingTreasure>().showTreasure();
             Destroy(other.gameObject);
 
             //Update manna count
@@ -30,9 +31,6 @@ public class MosesCollision : MonoBehaviour
 
             //Update count
             levelControl.GetComponent<Level1Control>().addTreasure();
-
-            //Treasure chests are worth 1000 points
-            GameController.controller.addPoints(1000);
         }
 
         //For colliding with enemy- dies
@@ -40,9 +38,15 @@ public class MosesCollision : MonoBehaviour
         {
             //Subtract a life and reset level
             GameController.controller.MosesDied();
-            levelControl.GetComponent<Level1Control>().ResetLevel();
+            //levelControl.GetComponent<Level1Control>().ResetLevel();
 
             //Visuals-- change sprite, wait a few secs, reload?
+        }
+
+        //For finishing level- load next level
+        if(other.gameObject.tag == "Finish")
+        {
+            Debug.Log("Next level should load");
         }
     }
 }
