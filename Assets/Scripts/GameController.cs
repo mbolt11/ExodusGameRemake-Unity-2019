@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
         //Initialize variables at beginning of game
         MosesLives = 5;
         points = 0;
-        currentLevel = 1;
+        currentLevel = 2;
         currentSceneNum = SceneManager.GetActiveScene().buildIndex;
     }
 

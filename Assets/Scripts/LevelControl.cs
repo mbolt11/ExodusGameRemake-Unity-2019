@@ -20,14 +20,14 @@ public class LevelControl : MonoBehaviour
     public GameObject canvas;
     public GameObject finish;
 
+    // Start is called before the first frame update
     private void Awake()
     {
         //This calls the methods to reinitialize gameobjects in GameController when the scene is reloaded
         GameController.controller.InitializeGameObjects();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         //Initialize all variables that don't vary from level to level
         manna = 0;
@@ -47,8 +47,8 @@ public class LevelControl : MonoBehaviour
                 treasureQuota = 5;
                 break;
             case 2:
-                mannaQuota = 1000;
-                treasureQuota = 1000;
+                mannaQuota = 33;
+                treasureQuota = 5;
                 break;
             case 3:
                 mannaQuota = 1000;
