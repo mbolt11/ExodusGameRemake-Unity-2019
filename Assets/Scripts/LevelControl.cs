@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level1Control : MonoBehaviour
+public class LevelControl : MonoBehaviour
 {
-    //These are the stats that do not carry over from level to level
+    //Stats that don't carry over and don't vary from level to level
     private int manna;
     private bool mannaQuotaMet;
     private int treasure;
     private bool treasureQuotaMet;
     private int clockTime;
     private bool levelComplete;
+
+    //These don't carry over but do vary from level to level
+    private int mannaQuota;
+    private int treasureQuota;
+    private bool finished;
 
     public GameObject canvas;
     public GameObject finish;
@@ -24,6 +29,7 @@ public class Level1Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Initialize all variables that don't vary from level to level
         manna = 0;
         mannaQuotaMet = false;
         treasure = 0;
@@ -31,6 +37,32 @@ public class Level1Control : MonoBehaviour
         clockTime = 300;
         levelComplete = false;
         finish.SetActive(false);
+        finished = false;
+
+        //Initialize the variables that do vary from level to level
+        switch (GameController.controller.getLevelNum())
+        {
+            case 1:
+                mannaQuota = 82;
+                treasureQuota = 5;
+                break;
+            case 2:
+                mannaQuota = 1000;
+                treasureQuota = 1000;
+                break;
+            case 3:
+                mannaQuota = 1000;
+                treasureQuota = 1000;
+                break;
+            case 4:
+                mannaQuota = 1000;
+                treasureQuota = 1000;
+                break;
+            case 5:
+                mannaQuota = 1000;
+                treasureQuota = 1000;
+                break;
+        }
 
         //The clock countdown
         StartCoroutine(Countdown());
@@ -39,12 +71,12 @@ public class Level1Control : MonoBehaviour
     //Accessors for stats to go in canvas
     public string getMannaCollected()
     {
-        return manna.ToString() + "/82";
+        return manna.ToString() + "/" + mannaQuota.ToString();
     }
 
     public string getTreasureCollected()
     {
-        return treasure.ToString() + "/5";
+        return treasure.ToString() + "/" + treasureQuota.ToString();
     }
 
     public string getTime()
@@ -63,7 +95,7 @@ public class Level1Control : MonoBehaviour
         canvas.GetComponent<StatBoard>().UpdateManna();
         canvas.GetComponent<StatBoard>().UpdateScore();
 
-        if (manna >= 82)
+        if (manna >= mannaQuota)
             mannaQuotaMet = true;
     }
 
@@ -78,8 +110,13 @@ public class Level1Control : MonoBehaviour
         canvas.GetComponent<StatBoard>().UpdateTreasure();
         canvas.GetComponent<StatBoard>().UpdateScore();
 
-        if (treasure >= 5)
+        if (treasure >= treasureQuota)
             treasureQuotaMet = true;
+    }
+
+    public void AtFinish()
+    {
+        finished = true;
     }
 
     private void Update()
@@ -102,13 +139,29 @@ public class Level1Control : MonoBehaviour
 
     private IEnumerator Countdown()
     {
-        while(clockTime > 0)
+        while(clockTime > 0 && !finished)
         {
             yield return new WaitForSeconds(1f);
 
             //Decrement time and update the canvas
             clockTime--;
             canvas.GetComponent<StatBoard>().UpdateTime();
+        }
+
+        //They completed the level
+        if(clockTime > 0)
+        {
+            canvas.GetComponent<StatBoard>().UpdateMessage("Level Complete!");
+            GameController.controller.addPoints(clockTime);
+            clockTime = 0;
+            canvas.GetComponent<StatBoard>().UpdateScore();
+            canvas.GetComponent<StatBoard>().UpdateTime();
+        }
+        //Ran out of time
+        else
+        {
+            canvas.GetComponent<StatBoard>().UpdateMessage("Time's up!");
+            GameController.controller.MosesDied();
         }
     }
 }

@@ -12,10 +12,10 @@ public class StatBoard : MonoBehaviour
     public Text manna;
     public Text treasure;
     public Text time;
+    public Text bibles;
     public Text message;
 
     public GameObject levelControl;
-    //public GameObject gameControl;
 
     // Start is called before the first frame update
     void Start()
@@ -23,10 +23,11 @@ public class StatBoard : MonoBehaviour
         message.gameObject.SetActive(false);
 
         level.text = "Level " + GameController.controller.getLevelNum();
-        score.text = "Score: " + GameController.controller.getPoints();
+        score.text = "Score:\n" + GameController.controller.getPoints();
         lives.text = "Lives: " + GameController.controller.getLives();
-        manna.text = "Manna: " + levelControl.GetComponent<Level1Control>().getMannaCollected();
-        treasure.text = "Treasure: " + levelControl.GetComponent<Level1Control>().getTreasureCollected();
+        manna.text = "Manna: " + levelControl.GetComponent<LevelControl>().getMannaCollected();
+        treasure.text = "Treasure: " + levelControl.GetComponent<LevelControl>().getTreasureCollected();
+        bibles.text = "Bibles: " + GameController.controller.getBibles();
         time.text = "Time: 300";
     }
 
@@ -38,7 +39,7 @@ public class StatBoard : MonoBehaviour
 
     public void UpdateScore()
     {
-        score.text = "Score: " + GameController.controller.getPoints();
+        score.text = "Score:\n" + GameController.controller.getPoints();
     }
 
     public void UpdateLives()
@@ -48,12 +49,17 @@ public class StatBoard : MonoBehaviour
 
     public void UpdateManna()
     {
-        manna.text = "Manna: " + levelControl.GetComponent<Level1Control>().getMannaCollected();
+        manna.text = "Manna: " + levelControl.GetComponent<LevelControl>().getMannaCollected();
     }
 
     public void UpdateTreasure()
     {
-        treasure.text = "Treasure: " + levelControl.GetComponent<Level1Control>().getTreasureCollected();
+        treasure.text = "Treasure: " + levelControl.GetComponent<LevelControl>().getTreasureCollected();
+    }
+
+    public void UpdateBibles()
+    {
+        bibles.text = "Bibles: " + GameController.controller.getBibles();
     }
 
     public void UpdateMessage(string message_in)
@@ -64,6 +70,6 @@ public class StatBoard : MonoBehaviour
 
     public void UpdateTime()
     {
-        time.text = "Time: " + levelControl.GetComponent<Level1Control>().getTime();
+        time.text = "Time: " + levelControl.GetComponent<LevelControl>().getTime();
     }
 }

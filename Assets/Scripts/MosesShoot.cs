@@ -15,7 +15,6 @@ public class MosesShoot : MonoBehaviour
         {
             float xSpeed, ySpeed;
             string lastMove = moses.GetComponent<MosesMovement>().getLastMove();
-            //Debug.Log("SHOT: " + lastMove);
             Transform direction;
             if (lastMove.Equals("UP"))
             {

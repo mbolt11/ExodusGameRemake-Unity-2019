@@ -5,12 +5,7 @@ using UnityEngine;
 public class MosesCollision : MonoBehaviour
 {
     public GameObject levelControl;
-    //public GameObject gameControl;
-
-    void Start()
-    {
-
-    }
+    public GameObject canvas;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -21,32 +16,41 @@ public class MosesCollision : MonoBehaviour
             Destroy(other.gameObject);
 
             //Update manna count
-            levelControl.GetComponent<Level1Control>().addManna();
+            levelControl.GetComponent<LevelControl>().addManna();
         }
 
         //Picking up treasure boxes
-        if (other.collider.gameObject.tag == "Treasure")
+        if (other.gameObject.tag == "Treasure")
         {
             Destroy(other.gameObject);
 
             //Update count
-            levelControl.GetComponent<Level1Control>().addTreasure();
+            levelControl.GetComponent<LevelControl>().addTreasure();
+        }
+
+        //Picking up Bibles
+        if (other.gameObject.tag == "Bible")
+        {
+            Destroy(other.gameObject);
+
+            //Update count
+            GameController.controller.addBible();
         }
 
         //For colliding with enemy- dies
         if (other.gameObject.tag == "Soldier")
         {
-            //Subtract a life and reset level
+            //Print message and start die logic
+            canvas.GetComponent<StatBoard>().UpdateMessage("You died!");
             GameController.controller.MosesDied();
-            //levelControl.GetComponent<Level1Control>().ResetLevel();
-
-            //Visuals-- change sprite, wait a few secs, reload?
         }
 
         //For finishing level- load next level
         if(other.gameObject.tag == "Finish")
         {
-            Debug.Log("Next level should load");
+            //Stop the clock and load next level
+            levelControl.GetComponent<LevelControl>().AtFinish();
+            GameController.controller.LoadNextLevel();
         }
     }
 }

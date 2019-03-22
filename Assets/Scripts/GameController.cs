@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     private int MosesLives = 5;
     private int points;
     private int currentLevel = 1;
+    private int bibles;
 
     void Awake()
     {
@@ -67,6 +68,11 @@ public class GameController : MonoBehaviour
         return currentLevel;
     }
 
+    public int getBibles()
+    {
+        return bibles;
+    }
+
     //Stat updaters
     public void MosesDied()
     {
@@ -75,15 +81,28 @@ public class GameController : MonoBehaviour
         MosesLives--;
         canvas.GetComponent<StatBoard>().UpdateLives();
 
-        //Print message then reload the scene
-        canvas.GetComponent<StatBoard>().UpdateMessage("You died!");
-        StartCoroutine(ReloadSceneOnDeath());
+        //Check if game over
+        if(MosesLives > 0)
+        {
+            //Reload the scene
+            StartCoroutine(ReloadSceneOnDeath());
+        }
+        else
+        {
+            canvas.GetComponent<StatBoard>().UpdateMessage("Game Over!!");
+        }
     }
 
     public void addPoints(int points_in)
     {
         points += points_in;
         canvas.GetComponent<StatBoard>().UpdateScore();
+    }
+
+    public void addBible()
+    {
+        bibles++;
+        canvas.GetComponent<StatBoard>().UpdateBibles();
     }
 
     //Coroutine to be called when Moses dies and need to reload scene
@@ -93,5 +112,12 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(currentSceneNum);
     }
 
-
+    //Coroutine to be called when completing a level to move on to the next
+    public IEnumerator LoadNextLevel()
+    {
+        currentLevel++;
+        currentSceneNum++;
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(currentSceneNum);
+    }
 }
