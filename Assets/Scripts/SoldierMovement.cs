@@ -4,14 +4,31 @@ using UnityEngine;
 
 public class SoldierMovement : MonoBehaviour
 {
-    public int row, col;
+    public int row, col, speed;
+    public string cardinalForward;
+    private Vector2 location, locationBoard, destination, destinationBoard, velocity;
     private BoardState boardState;
+    private string[] orientationDirec = new string[4];
+
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject controller = GameObject.FindGameObjectWithTag("Controller");
         boardState = BoardState.getBoard();
+
+        //location and destination should be equal during start up
+        locationBoard = new Vector2(row, col);
+        destinationBoard = new Vector2(row, col);
+
+        location = gameObject.transform.position;
+        destination = new Vector2(location.x, location.y);
+
+        //set orientation
+        updateOrientation();
+
+        velocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+        velocity.Set(0, 0);
     }
 
     // Update is called once per frame
@@ -20,12 +37,211 @@ public class SoldierMovement : MonoBehaviour
         //find where it should go next && check up, down, left, and right
         //all enemies will move in a clockwise pattern (meaning they will always travel left)
 
+        //if location = destination, search for next destination and begin movement
+        if(destination.x == location.x && destination.y == location.y)
+        {
+            //change locationBoard
+            locationBoard.Set(destinationBoard.x, destinationBoard.y);
 
+            //set velocity to zero
+            velocity.Set(Vector2.zero.x, Vector2.zero.y);
+
+            //4 possible moves that all qualify as "edge pieces"
+            Vector2[] possMoves = findLocations();
+            int index = findDestIndx(possMoves);
+
+            if (index > 0)
+            {
+                destination.Set(possMoves[index].x, possMoves[index].y);
+                Debug.Log("new destination--> x: "+destination.x+ " y: "+destination.y);
+
+                //set velocity, cardinalForward, and orientationDirec to get to the destination
+                if (index == 0) //traveling WEST
+                {
+                    velocity.Set(-speed, 0);
+                    cardinalForward = "WEST";
+                    destinationBoard.Set(destinationBoard.x - 1, destinationBoard.y);
+                }
+                else if (index == 1) //traveling EAST
+                {
+                    velocity.Set(speed, 0);
+                    cardinalForward = "EAST";
+                    destinationBoard.Set(destinationBoard.x + 1, destinationBoard.y);
+                }
+                else if (index == 2) //traveling SOUTH
+                {
+                    velocity.Set(0, -speed);
+                    cardinalForward = "SOUTH";
+                    destinationBoard.Set(destinationBoard.x, destinationBoard.y-1);
+                }
+                else //traveling NORTH
+                {
+                    velocity.Set(0, speed);
+                    cardinalForward = "NORTH";
+                    destinationBoard.Set(destinationBoard.x, destinationBoard.y+1);
+                }
+
+                Debug.Log("new cardForward: " + cardinalForward);
+                updateOrientation();
+            }
+        }
     }
 
-    /*int[,] findLocations()
+    int findDestIndx(Vector2[] moveOptions)
     {
-        //check left
-        if(boardState.locationValue())
-    }*/
+        //RULE1: according to orientation, if "left" is available then do it
+        //RULE2: if "left" unavailable, then move "forward" or in the same direction as previous
+        //RULE3: if "forward is unavailable", then move "right" according to orientation
+        //RULE4: if "right" unavailable, then must turn around (in such case there should only be 1 valid move)
+
+        int destIndex = -1;
+
+        int validMoves = 0;
+        //check first if need to turn around
+        for (int i = 0; i < 4; i++)
+        {
+            if (Mathf.Abs(moveOptions[i].x - location.x) < 50)
+            {
+                validMoves++;
+                destIndex = i;
+            }
+        }
+
+        if (validMoves == 1)
+        {
+            Debug.Log("only one option");
+            return destIndex;
+        }
+        else if (validMoves == 0)
+            Debug.Log("No moves found, ERROR");
+
+        //if "left" available, do it
+        for(int i = 0; i < 4; i++)
+        {
+            //if the tile to the "left" is valid, then move there
+            if (orientationDirec[i].Equals("left") && Mathf.Abs(moveOptions[i].x - location.x) < 50)
+            {
+                Debug.Log("moving 'left'");
+                return i;
+            }
+        }
+
+        //if "left", unavailable move "forward"
+        for (int i = 0; i < 4; i++)
+        {
+            //if the tile to the "forward" is valid, then move there
+            if (orientationDirec[i].Equals("forward") && Mathf.Abs(moveOptions[i].x - location.x) < 50)
+            {
+                Debug.Log("moving 'forward'");
+                return i;
+            }
+        }
+
+        //if "forward" unavailable, then move "right"
+        for (int i = 0; i < 4; i++)
+        {
+            //if the tile to the "forward" is valid, then move there
+            if (orientationDirec[i].Equals("right") && Mathf.Abs(moveOptions[i].x - location.x) < 50)
+            {
+                Debug.Log("moving 'right'");
+                return i;
+            }
+        }
+
+        Debug.Log("DIDNT FIND VALID DIRECTION: " + destIndex);
+        return destIndex;
+    }
+
+    void updateOrientation()
+    {
+        //orientationDirec[] --> 0: WEST, 1:EAST, 2:SOUTH, 3:NORTH
+        if (cardinalForward.Equals("NORTH"))
+        {
+            orientationDirec[0] = "left";
+            orientationDirec[1] = "right";
+            orientationDirec[2] = "back";
+            orientationDirec[3] = "forward";
+        }
+        else if(cardinalForward.Equals("SOUTH"))
+        {
+            orientationDirec[0] = "right";
+            orientationDirec[1] = "left";
+            orientationDirec[2] = "forward";
+            orientationDirec[3] = "back";
+        }
+        else if(cardinalForward.Equals("EAST"))
+        {
+            orientationDirec[0] = "back";
+            orientationDirec[1] = "forward";
+            orientationDirec[2] = "right";
+            orientationDirec[3] = "left";
+        }
+        else //"WEST"
+        {
+            orientationDirec[0] = "forward";
+            orientationDirec[1] = "back";
+            orientationDirec[2] = "left";
+            orientationDirec[3] = "right";
+        }
+    }
+
+    //0:WEST, 1:EAST, 2:SOUTH, 3:NORTH
+    Vector2[] findLocations()
+    {
+        //only 4 possible moves
+        Vector2[] moves = new Vector2[4];
+
+        //EACH MUST CHECK IF ITS AN EDGE PIECE
+        //check WEST
+        if (boardState.locationValue((int)locationBoard.x - 1, (int)locationBoard.y) == 0 && isEdgePiece(new Vector2((int)locationBoard.x - 1, (int)locationBoard.y)))
+            moves[0].Set(location.x - 1, location.y);
+        else
+            moves[0].Set(location.x - 100, location.y - 100);
+
+        //check EAST
+        if (boardState.locationValue((int)locationBoard.x + 1, (int)locationBoard.y) == 0 && isEdgePiece(new Vector2((int)locationBoard.x + 1, (int)locationBoard.y)))
+            moves[1].Set(location.x + 1, location.y);
+        else
+            moves[1].Set(location.x + 100, location.y + 100);
+
+        //check SOUTH
+        if (boardState.locationValue((int)locationBoard.x, (int)locationBoard.y - 1) == 0 && isEdgePiece(new Vector2((int)locationBoard.x, (int)locationBoard.y - 1)))
+            moves[2].Set(location.x, location.y - 1);
+        else
+            moves[2].Set(location.x - 100, location.y - 100);
+
+        //check NORTH
+        if (boardState.locationValue((int)locationBoard.x, (int)locationBoard.y + 1) == 0 && isEdgePiece(new Vector2((int)locationBoard.x, (int)locationBoard.y + 1)))
+            moves[3].Set(location.x, location.y + 1);
+        else
+            moves[3].Set(location.x+ 100, location.y + 100);
+
+        return moves;
+    }
+
+    bool isEdgePiece(Vector2 spot)
+    {
+        int freeSpaceCount = 0;
+
+        //check WEST
+        if (boardState.locationValue((int)spot.x - 1, (int)spot.y) == 0)
+            freeSpaceCount++;
+
+        //check EAST
+        if (boardState.locationValue((int)spot.x + 1, (int)spot.y) == 0)
+            freeSpaceCount++;
+
+        //check SOUTH
+        if (boardState.locationValue((int)spot.x, (int)spot.y - 1) == 0)
+            freeSpaceCount++;
+
+        //check NORTH
+        if (boardState.locationValue((int)spot.x, (int)spot.y + 1) == 0)
+            freeSpaceCount++;
+
+        if (freeSpaceCount > 3)
+            return false;
+        else
+            return true;
+    }
 }

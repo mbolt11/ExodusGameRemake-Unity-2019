@@ -4069,7 +4069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4120737319181340, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.46
+      value: 0.449
       objectReference: {fileID: 0}
     - target: {fileID: 4120737319181340, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4105,6 +4105,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4120737319181340, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 705520651, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
+      propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7593,8 +7597,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be45d5c5ce15a7545855cac1883577ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  row: 0
-  col: 0
+  row: 5
+  col: 4
+  speed: 1
+  cardinalForward: EAST
 --- !u!1001 &1327946508
 PrefabInstance:
   m_ObjectHideFlags: 0
