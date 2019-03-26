@@ -10,12 +10,19 @@ public class SoldierMovement : MonoBehaviour
     private BoardState boardState;
     private string[] orientationDirec = new string[4];
 
+    //For changing the image when he changes direction
+    public Sprite[] images;
+    private SpriteRenderer renderer;
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject controller = GameObject.FindGameObjectWithTag("Controller");
         boardState = BoardState.getBoard();
+
+        //Get renderer and set initial image
+        renderer = GetComponent<SpriteRenderer>();
+        renderer.sprite = images[0];
 
         //location and destination should be equal during start up
         locationBoard = new Vector2(row, col);
@@ -58,24 +65,28 @@ public class SoldierMovement : MonoBehaviour
                 //set velocity, cardinalForward, and orientationDirec to get to the destination
                 if (index == 0) //traveling WEST
                 {
+                    renderer.sprite = images[2];
                     velocity.Set(-speed, 0);
                     cardinalForward = "WEST";
                     destinationBoard.Set(destinationBoard.x - 1, destinationBoard.y);
                 }
                 else if (index == 1) //traveling EAST
                 {
+                    renderer.sprite = images[3];
                     velocity.Set(speed, 0);
                     cardinalForward = "EAST";
                     destinationBoard.Set(destinationBoard.x + 1, destinationBoard.y);
                 }
                 else if (index == 2) //traveling SOUTH
                 {
+                    renderer.sprite = images[0];
                     velocity.Set(0, -speed);
                     cardinalForward = "SOUTH";
                     destinationBoard.Set(destinationBoard.x, destinationBoard.y-1);
                 }
                 else //traveling NORTH
                 {
+                    renderer.sprite = images[1];
                     velocity.Set(0, speed);
                     cardinalForward = "NORTH";
                     destinationBoard.Set(destinationBoard.x, destinationBoard.y+1);

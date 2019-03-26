@@ -19,6 +19,12 @@ public class WordBehavior : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+        if(other.gameObject.tag.Equals("Blue Dirt"))
+        {
+            other.gameObject.GetComponent<HidingTreasure>().showTreasure();
+            other.gameObject.GetComponent<DestroyDirt>().BlueDirtHit();
+        }
+
         if (other.gameObject.tag.Equals("Soldier"))
             other.gameObject.GetComponent<EnemyHealth>().WordHit();
 

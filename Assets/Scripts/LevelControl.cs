@@ -33,6 +33,7 @@ public class LevelControl : MonoBehaviour
         manna = 0;
         mannaQuotaMet = false;
         treasure = 0;
+        treasureQuota = 5;
         treasureQuotaMet = false;
         clockTime = 300;
         levelComplete = false;
@@ -44,23 +45,18 @@ public class LevelControl : MonoBehaviour
         {
             case 1:
                 mannaQuota = 82;
-                treasureQuota = 5;
                 break;
             case 2:
                 mannaQuota = 33;
-                treasureQuota = 5;
                 break;
             case 3:
                 mannaQuota = 86;
-                treasureQuota = 5;
                 break;
             case 4:
                 mannaQuota = 1000;
-                treasureQuota = 1000;
                 break;
             case 5:
                 mannaQuota = 1000;
-                treasureQuota = 1000;
                 break;
         }
 

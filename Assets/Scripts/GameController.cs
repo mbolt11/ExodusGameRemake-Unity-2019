@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
         //Initialize variables at beginning of game
         MosesLives = 5;
         points = 0;
-        currentLevel = 3;
+        currentLevel = 1;
         currentSceneNum = SceneManager.GetActiveScene().buildIndex;
     }
 
@@ -102,6 +102,16 @@ public class GameController : MonoBehaviour
     public void addBible()
     {
         bibles++;
+
+        //You are supposed to gain a life when you get 10 bibles,
+        //but you are also supposed to gain a bible when you answer and question
+        //and we aren't doing the questions.. idk if they can even get 10 bibles
+        if(bibles == 10)
+        {
+            MosesLives++;
+            bibles = 0;
+        }
+
         canvas.GetComponent<StatBoard>().UpdateBibles();
     }
 
