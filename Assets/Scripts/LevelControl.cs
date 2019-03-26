@@ -51,8 +51,8 @@ public class LevelControl : MonoBehaviour
                 treasureQuota = 5;
                 break;
             case 3:
-                mannaQuota = 1000;
-                treasureQuota = 1000;
+                mannaQuota = 86;
+                treasureQuota = 5;
                 break;
             case 4:
                 mannaQuota = 1000;
