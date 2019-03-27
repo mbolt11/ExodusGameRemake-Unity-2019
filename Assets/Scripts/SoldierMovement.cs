@@ -6,9 +6,11 @@ public class SoldierMovement : MonoBehaviour
 {
     public int row, col, speed;
     public string cardinalForward;
-    private Vector2 location, locationBoard, destination, destinationBoard, velocity;
+    private Vector2 locationBoard, destination, destinationBoard;
     private BoardState boardState;
     private string[] orientationDirec = new string[4];
+    private float moveHorizontal;
+    private float moveVertical;
 
     //For changing the image when he changes direction
     public Sprite[] images;
@@ -28,14 +30,14 @@ public class SoldierMovement : MonoBehaviour
         locationBoard = new Vector2(row, col);
         destinationBoard = new Vector2(row, col);
 
-        location = gameObject.transform.position;
-        destination = new Vector2(location.x, location.y);
+        //location = gameObject.transform.position;
+        destination = new Vector2(transform.position.x, transform.position.y);
 
         //set orientation
         updateOrientation();
 
-        velocity = gameObject.GetComponent<Rigidbody2D>().velocity;
-        velocity.Set(0, 0);
+        //velocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+        //velocity.Set(0, 0);
     }
 
     // Update is called once per frame
@@ -45,20 +47,21 @@ public class SoldierMovement : MonoBehaviour
         //all enemies will move in a clockwise pattern (meaning they will always travel left)
 
         //if location = destination, search for next destination and begin movement
-        if(destination.x == location.x && destination.y == location.y)
+        if(reachedDestination(destination))
         {
             //change locationBoard
             locationBoard.Set(destinationBoard.x, destinationBoard.y);
 
             //set velocity to zero
-            velocity.Set(Vector2.zero.x, Vector2.zero.y);
+            //velocity.Set(Vector2.zero.x, Vector2.zero.y);
 
             //4 possible moves that all qualify as "edge pieces"
             Vector2[] possMoves = findLocations();
             int index = findDestIndx(possMoves);
 
-            if (index > 0)
+            if (index >= 0)
             {
+                Debug.Log("prev cardForward: " + cardinalForward);
                 destination.Set(possMoves[index].x, possMoves[index].y);
                 Debug.Log("new destination--> x: "+destination.x+ " y: "+destination.y);
 
@@ -66,36 +69,70 @@ public class SoldierMovement : MonoBehaviour
                 if (index == 0) //traveling WEST
                 {
                     renderer.sprite = images[2];
-                    velocity.Set(-speed, 0);
+                    moveHorizontal = -speed * Time.deltaTime;
+                    moveVertical = 0;
                     cardinalForward = "WEST";
-                    destinationBoard.Set(destinationBoard.x - 1, destinationBoard.y);
+                    destinationBoard.Set(destinationBoard.x, destinationBoard.y - 1);
                 }
                 else if (index == 1) //traveling EAST
                 {
                     renderer.sprite = images[3];
-                    velocity.Set(speed, 0);
+                    moveHorizontal = speed * Time.deltaTime;
+                    moveVertical = 0;
                     cardinalForward = "EAST";
-                    destinationBoard.Set(destinationBoard.x + 1, destinationBoard.y);
+                    destinationBoard.Set(destinationBoard.x, destinationBoard.y + 1);
                 }
                 else if (index == 2) //traveling SOUTH
                 {
                     renderer.sprite = images[0];
-                    velocity.Set(0, -speed);
+                    moveHorizontal = 0;
+                    moveVertical = -speed * Time.deltaTime;
                     cardinalForward = "SOUTH";
-                    destinationBoard.Set(destinationBoard.x, destinationBoard.y-1);
+                    destinationBoard.Set(destinationBoard.x + 1, destinationBoard.y);
                 }
                 else //traveling NORTH
                 {
                     renderer.sprite = images[1];
-                    velocity.Set(0, speed);
+                    moveHorizontal = 0;
+                    moveVertical = speed * Time.deltaTime;
                     cardinalForward = "NORTH";
-                    destinationBoard.Set(destinationBoard.x, destinationBoard.y+1);
+                    destinationBoard.Set(destinationBoard.x - 1, destinationBoard.y);
                 }
 
                 Debug.Log("new cardForward: " + cardinalForward);
                 updateOrientation();
             }
         }
+
+        transform.Translate(moveHorizontal, moveVertical, 0f);
+        //Debug.Log(transform.position.x);
+        
+    }
+
+    bool reachedDestination(Vector2 dest_in)
+    {
+        if(cardinalForward == "NORTH")
+        {
+            if (transform.position.y >= dest_in.y)
+                return true;
+        }
+        else if(cardinalForward == "SOUTH")
+        {
+            if (transform.position.y <= dest_in.y)
+                return true;
+        }
+        else if(cardinalForward == "WEST")
+        {
+            if (transform.position.x <= dest_in.x)
+                return true;
+        }
+        else if(cardinalForward == "EAST")
+        {
+            if (transform.position.x >= dest_in.x)
+                return true;
+        }
+
+        return false;
     }
 
     int findDestIndx(Vector2[] moveOptions)
@@ -111,7 +148,7 @@ public class SoldierMovement : MonoBehaviour
         //check first if need to turn around
         for (int i = 0; i < 4; i++)
         {
-            if (Mathf.Abs(moveOptions[i].x - location.x) < 50)
+            if (Mathf.Abs(moveOptions[i].x - transform.position.x) < 50)
             {
                 validMoves++;
                 destIndex = i;
@@ -120,19 +157,20 @@ public class SoldierMovement : MonoBehaviour
 
         if (validMoves == 1)
         {
-            Debug.Log("only one option");
+            //Debug.Log("only one option");
             return destIndex;
         }
         else if (validMoves == 0)
-            Debug.Log("No moves found, ERROR");
+        {    //Debug.Log("No moves found, ERROR");
+        }
 
         //if "left" available, do it
         for(int i = 0; i < 4; i++)
         {
             //if the tile to the "left" is valid, then move there
-            if (orientationDirec[i].Equals("left") && Mathf.Abs(moveOptions[i].x - location.x) < 50)
+            if (orientationDirec[i].Equals("left") && Mathf.Abs(moveOptions[i].x - transform.position.x) < 50)
             {
-                Debug.Log("moving 'left'");
+                //Debug.Log("moving 'left'");
                 return i;
             }
         }
@@ -141,9 +179,9 @@ public class SoldierMovement : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             //if the tile to the "forward" is valid, then move there
-            if (orientationDirec[i].Equals("forward") && Mathf.Abs(moveOptions[i].x - location.x) < 50)
+            if (orientationDirec[i].Equals("forward") && Mathf.Abs(moveOptions[i].x - transform.position.x) < 50)
             {
-                Debug.Log("moving 'forward'");
+                //Debug.Log("moving 'forward'");
                 return i;
             }
         }
@@ -152,9 +190,9 @@ public class SoldierMovement : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             //if the tile to the "forward" is valid, then move there
-            if (orientationDirec[i].Equals("right") && Mathf.Abs(moveOptions[i].x - location.x) < 50)
+            if (orientationDirec[i].Equals("right") && Mathf.Abs(moveOptions[i].x - transform.position.x) < 50)
             {
-                Debug.Log("moving 'right'");
+                //Debug.Log("moving 'right'");
                 return i;
             }
         }
@@ -204,33 +242,57 @@ public class SoldierMovement : MonoBehaviour
 
         //EACH MUST CHECK IF ITS AN EDGE PIECE
         //check WEST
-        if (boardState.locationValue((int)locationBoard.x - 1, (int)locationBoard.y) == 0 && isEdgePiece(new Vector2((int)locationBoard.x - 1, (int)locationBoard.y)))
-            moves[0].Set(location.x - 1, location.y);
+        if (boardState.locationValue((int)locationBoard.x, (int)locationBoard.y - 1) == 0 /*&& isEdgePiece(new Vector2((int)locationBoard.x - 1, (int)locationBoard.y))*/)
+        {
+            moves[0].Set(transform.position.x - 1, transform.position.y);
+            //Debug.Log("West = 0");
+        }
         else
-            moves[0].Set(location.x - 100, location.y - 100);
+        {
+            moves[0].Set(transform.position.x - 100, transform.position.y - 100);
+            //Debug.Log("West = 1");
+        }
 
         //check EAST
-        if (boardState.locationValue((int)locationBoard.x + 1, (int)locationBoard.y) == 0 && isEdgePiece(new Vector2((int)locationBoard.x + 1, (int)locationBoard.y)))
-            moves[1].Set(location.x + 1, location.y);
+        if (boardState.locationValue((int)locationBoard.x, (int)locationBoard.y + 1) == 0 /*&& isEdgePiece(new Vector2((int)locationBoard.x + 1, (int)locationBoard.y))*/)
+        {
+            moves[1].Set(transform.position.x + 1, transform.position.y);
+            //Debug.Log("East = 0");
+        }
         else
-            moves[1].Set(location.x + 100, location.y + 100);
+        {
+            //Debug.Log("East = 1");
+            moves[1].Set(transform.position.x + 100, transform.position.y + 100);
+        }
 
         //check SOUTH
-        if (boardState.locationValue((int)locationBoard.x, (int)locationBoard.y - 1) == 0 && isEdgePiece(new Vector2((int)locationBoard.x, (int)locationBoard.y - 1)))
-            moves[2].Set(location.x, location.y - 1);
+        if (boardState.locationValue((int)locationBoard.x + 1, (int)locationBoard.y) == 0 /*&& isEdgePiece(new Vector2((int)locationBoard.x, (int)locationBoard.y - 1))*/)
+        {
+            //Debug.Log("South = 0");
+            moves[2].Set(transform.position.x, transform.position.y - 1);
+        }
         else
-            moves[2].Set(location.x - 100, location.y - 100);
+        {
+            //Debug.Log("South = 1");
+            moves[2].Set(transform.position.x - 100, transform.position.y - 100);
+        }
 
         //check NORTH
-        if (boardState.locationValue((int)locationBoard.x, (int)locationBoard.y + 1) == 0 && isEdgePiece(new Vector2((int)locationBoard.x, (int)locationBoard.y + 1)))
-            moves[3].Set(location.x, location.y + 1);
+        if (boardState.locationValue((int)locationBoard.x - 1, (int)locationBoard.y) == 0 /*&& isEdgePiece(new Vector2((int)locationBoard.x, (int)locationBoard.y + 1))*/)
+        {
+            moves[3].Set(transform.position.x, transform.position.y + 1);
+            //Debug.Log("North = 0");
+        }
         else
-            moves[3].Set(location.x+ 100, location.y + 100);
+        {
+            //Debug.Log("North = 1");
+            moves[3].Set(transform.position.x + 100, transform.position.y + 100);
+        }
 
         return moves;
     }
 
-    bool isEdgePiece(Vector2 spot)
+    /*bool isEdgePiece(Vector2 spot)
     {
         int freeSpaceCount = 0;
 
@@ -251,8 +313,12 @@ public class SoldierMovement : MonoBehaviour
             freeSpaceCount++;
 
         if (freeSpaceCount > 3)
+        {
+
+            Debug.Log("Not edge piece at x:" + spot.x + " y:" + spot.y);
             return false;
+        }
         else
             return true;
-    }
+    }*/
 }

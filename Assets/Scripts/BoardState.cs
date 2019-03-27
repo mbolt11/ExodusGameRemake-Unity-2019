@@ -45,6 +45,7 @@ public class BoardState : MonoBehaviour
 
     public int locationValue(int row, int col)
     {
+        //Debug.Log("at row:" + row + " col:" + col + " --> " + board[row, col]);
         return board[row, col];
     }
 
