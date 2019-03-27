@@ -7,6 +7,7 @@ public class BoardState : MonoBehaviour
     private static BoardState boardState;
     private int[,] board;
     private int rowAmount, colAmount;
+    private Vector2 topLeft;
 
     //all the obstacles and empty spaces on the board at the load of level1
     string level1 = "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n" +
@@ -32,7 +33,7 @@ public class BoardState : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        if(boardState != this)
+        if(boardState == null)
             boardState = this;
     }
 
@@ -40,7 +41,8 @@ public class BoardState : MonoBehaviour
     {
         loadLevel(level1);
         //Debug.Log("LEVEL\n");
-        printLevel();        
+        //printLevel();
+        topLeft = new Vector2(-5.5f, 5.5f);
     }
 
     public int locationValue(int row, int col)
@@ -89,5 +91,25 @@ public class BoardState : MonoBehaviour
             }
             levelString += "\n";
         }
+
+        Debug.Log(levelString);
+    }
+
+    //level 1 top left corner x:-5.5 y:5.5
+    public Vector2 findBoardLocation(Transform other)
+    {
+        //find the row
+        int other_col = Mathf.RoundToInt(Mathf.Abs(other.position.x - topLeft.x));
+        int other_row = Mathf.RoundToInt(Mathf.Abs(other.position.y - topLeft.y));
+        //Debug.Log("ROW:" + other_row + " COL:" + other_col);
+        return new Vector2(other_row, other_col);
+    }
+
+    public void updateBoard(Vector2 location, int value)
+    {
+        board[(int)location.x, (int)location.y] = value;
+        //Debug.Log("UPDATED BOARD");
+        //Debug.Log(board);
+        //printLevel();
     }
 }

@@ -6,14 +6,28 @@ public class MosesCollision : MonoBehaviour
 {
     public GameObject levelControl;
     public GameObject canvas;
+    private BoardState board;
 
+    private void Start()
+    {
+       board = BoardState.getBoard();
+    }
     private void OnCollisionEnter2D(Collision2D other)
     {
         //For colliding with manna
         if (other.gameObject.tag == "Manna")
         {
-            other.gameObject.GetComponent<HidingTreasure>().showTreasure();
-            Destroy(other.gameObject);
+            //????
+            if (other.gameObject.GetComponent<HidingTreasure>().showTreasure())
+            {
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                Vector2 boardLocation = board.findBoardLocation(other.transform);
+                Destroy(other.gameObject);
+                board.updateBoard(boardLocation, 0);
+            }
 
             //Update manna count
             levelControl.GetComponent<LevelControl>().addManna();
@@ -22,7 +36,9 @@ public class MosesCollision : MonoBehaviour
         //Picking up treasure boxes
         if (other.gameObject.tag == "Treasure")
         {
+            Vector2 boardLocation = board.findBoardLocation(other.transform);
             Destroy(other.gameObject);
+            board.updateBoard(boardLocation, 0);
 
             //Update count
             levelControl.GetComponent<LevelControl>().addTreasure();
@@ -31,7 +47,9 @@ public class MosesCollision : MonoBehaviour
         //Picking up Bibles
         if (other.gameObject.tag == "Bible")
         {
+            Vector2 boardLocation = board.findBoardLocation(other.transform);
             Destroy(other.gameObject);
+            board.updateBoard(boardLocation, 0);
 
             //Update count
             GameController.controller.addBible();
@@ -52,6 +70,12 @@ public class MosesCollision : MonoBehaviour
             levelControl.GetComponent<LevelControl>().AtFinish();
             GameController.controller.LoadNextLevel();
         }
+    }
+
+    public void mosesDeath()
+    {
+        canvas.GetComponent<StatBoard>().UpdateMessage("You died!");
+        GameController.controller.MosesDied();
     }
 }
 

@@ -61,9 +61,9 @@ public class SoldierMovement : MonoBehaviour
 
             if (index >= 0)
             {
-                Debug.Log("prev cardForward: " + cardinalForward);
+                //Debug.Log("prev cardForward: " + cardinalForward);
                 destination.Set(possMoves[index].x, possMoves[index].y);
-                Debug.Log("new destination--> x: "+destination.x+ " y: "+destination.y);
+                //Debug.Log("new destination--> x: "+destination.x+ " y: "+destination.y);
 
                 //set velocity, cardinalForward, and orientationDirec to get to the destination
                 if (index == 0) //traveling WEST
@@ -99,7 +99,7 @@ public class SoldierMovement : MonoBehaviour
                     destinationBoard.Set(destinationBoard.x - 1, destinationBoard.y);
                 }
 
-                Debug.Log("new cardForward: " + cardinalForward);
+                //Debug.Log("new cardForward: " + cardinalForward);
                 updateOrientation();
             }
         }

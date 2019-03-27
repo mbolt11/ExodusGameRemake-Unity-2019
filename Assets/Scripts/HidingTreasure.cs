@@ -18,9 +18,14 @@ public class HidingTreasure : MonoBehaviour
             treasure.SetActive(false);
     }
 
-    public void showTreasure()
+    public bool showTreasure()
     {
         if (hiddenTreasure)
+        {
             treasure.SetActive(true);
+            return true;
+        }
+
+        return false;
     }
 }

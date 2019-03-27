@@ -5,8 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class WordBehavior : MonoBehaviour
 {
+    private BoardState board;
+
     public void Start()
     {
+        board = BoardState.getBoard();
         Destroy(gameObject, 0.5f);
     }
 
@@ -15,13 +18,20 @@ public class WordBehavior : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Dirt"))
         {
-            other.gameObject.GetComponent<HidingTreasure>().showTreasure();
-            Destroy(other.gameObject);
+            if (other.gameObject.GetComponent<HidingTreasure>().showTreasure())
+            {
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                Vector2 boardLocation = board.findBoardLocation(other.transform);
+                Destroy(other.gameObject);
+                board.updateBoard(boardLocation, 0);
+            }
         }
 
         if(other.gameObject.tag.Equals("Blue Dirt"))
         {
-            other.gameObject.GetComponent<HidingTreasure>().showTreasure();
             other.gameObject.GetComponent<DestroyDirt>().BlueDirtHit();
         }
 
