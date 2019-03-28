@@ -104,7 +104,8 @@ public class SoldierMovement : MonoBehaviour
             }
         }
 
-        transform.Translate(moveHorizontal, moveVertical, 0f);
+        if(!GameController.controller.getMosesDead())
+            transform.Translate(moveHorizontal, moveVertical, 0f);
         //Debug.Log(transform.position.x);
         
     }

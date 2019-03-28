@@ -1193,14 +1193,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Moses
       objectReference: {fileID: 0}
-    - target: {fileID: 4442201691675070, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4442201691675070, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.03
-      objectReference: {fileID: 0}
     - target: {fileID: 4599312398620000, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.49
@@ -1232,6 +1224,49 @@ PrefabInstance:
     - target: {fileID: 4599312398620000, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114630536243697280, guid: cb7c5a577493b4386bfbd6edc6db90a3,
+        type: 3}
+      propertyPath: levelControl
+      value: 
+      objectReference: {fileID: 1983299338}
+    - target: {fileID: 114630536243697280, guid: cb7c5a577493b4386bfbd6edc6db90a3,
+        type: 3}
+      propertyPath: gameControl
+      value: 
+      objectReference: {fileID: 1906794190}
+    - target: {fileID: 114630536243697280, guid: cb7c5a577493b4386bfbd6edc6db90a3,
+        type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1457866573}
+    - target: {fileID: 4442201691675070, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4442201691675070, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 61188247613108500, guid: cb7c5a577493b4386bfbd6edc6db90a3,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.007370472
+      objectReference: {fileID: 0}
+    - target: {fileID: 61188247613108500, guid: cb7c5a577493b4386bfbd6edc6db90a3,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.8808384
+      objectReference: {fileID: 0}
+    - target: {fileID: 61188247613108500, guid: cb7c5a577493b4386bfbd6edc6db90a3,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0009326935
+      objectReference: {fileID: 0}
+    - target: {fileID: 61188247613108500, guid: cb7c5a577493b4386bfbd6edc6db90a3,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.40628433
       objectReference: {fileID: 0}
     - target: {fileID: 114816966062402364, guid: cb7c5a577493b4386bfbd6edc6db90a3,
         type: 3}
@@ -1271,41 +1306,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnWordRight
       objectReference: {fileID: 0}
-    - target: {fileID: 61188247613108500, guid: cb7c5a577493b4386bfbd6edc6db90a3,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.007370472
-      objectReference: {fileID: 0}
-    - target: {fileID: 61188247613108500, guid: cb7c5a577493b4386bfbd6edc6db90a3,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.8808384
-      objectReference: {fileID: 0}
-    - target: {fileID: 61188247613108500, guid: cb7c5a577493b4386bfbd6edc6db90a3,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.0009326935
-      objectReference: {fileID: 0}
-    - target: {fileID: 61188247613108500, guid: cb7c5a577493b4386bfbd6edc6db90a3,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.40628433
-      objectReference: {fileID: 0}
-    - target: {fileID: 114630536243697280, guid: cb7c5a577493b4386bfbd6edc6db90a3,
-        type: 3}
-      propertyPath: levelControl
-      value: 
-      objectReference: {fileID: 1983299338}
-    - target: {fileID: 114630536243697280, guid: cb7c5a577493b4386bfbd6edc6db90a3,
-        type: 3}
-      propertyPath: gameControl
-      value: 
-      objectReference: {fileID: 1906794190}
-    - target: {fileID: 114630536243697280, guid: cb7c5a577493b4386bfbd6edc6db90a3,
-        type: 3}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 1457866573}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
 --- !u!1001 &230946410

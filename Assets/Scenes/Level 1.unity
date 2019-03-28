@@ -1190,6 +1190,14 @@ PrefabInstance:
       propertyPath: cardinalForward
       value: WEST
       objectReference: {fileID: 0}
+    - target: {fileID: 1327318641, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
+      propertyPath: row
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1327318641, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
+      propertyPath: col
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
@@ -4039,10 +4047,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 1642769873922594, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4120737319181340, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.54
@@ -4086,18 +4090,6 @@ PrefabInstance:
     - target: {fileID: 4120737319181340, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1327318641, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
-      propertyPath: cardinalForward
-      value: WEST
-      objectReference: {fileID: 0}
-    - target: {fileID: 1327318641, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
-      propertyPath: row
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1327318641, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
-      propertyPath: col
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b8c35b119f0f4813b7073bc3d739210, type: 3}
@@ -12268,7 +12260,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1906794192}
   - component: {fileID: 1906794191}
-  - component: {fileID: 1906794193}
   m_Layer: 0
   m_Name: Game Contoller
   m_TagString: Controller
@@ -12304,18 +12295,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1906794193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906794190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ab0923f606334748a5f8b4fa80774a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1950933678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12578,6 +12557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1983299339}
   - component: {fileID: 1983299340}
+  - component: {fileID: 1983299341}
   m_Layer: 0
   m_Name: Level Controller
   m_TagString: Untagged
@@ -12613,6 +12593,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1457866573}
   finish: {fileID: 1002144757}
+--- !u!114 &1983299341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983299338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab0923f606334748a5f8b4fa80774a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1988338675
 PrefabInstance:
   m_ObjectHideFlags: 0

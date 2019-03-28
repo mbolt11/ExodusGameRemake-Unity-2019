@@ -6,11 +6,12 @@ using UnityEngine.Tilemaps;
 public class WordBehavior : MonoBehaviour
 {
     private BoardState board;
+    private int wordpower;
 
     public void Start()
     {
         board = BoardState.getBoard();
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, .5f);
     }
 
     //Update is called once per frame
@@ -40,7 +41,7 @@ public class WordBehavior : MonoBehaviour
 
         if (other.gameObject.tag.Equals("Wood Block"))
             other.gameObject.GetComponent<BlockController>().WordHit();
-
+            
         Destroy(gameObject);
     }
 }

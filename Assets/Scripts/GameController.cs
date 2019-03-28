@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     private int points;
     private int currentLevel = 1;
     private int bibles;
+    private bool MosesDead = false;
 
     void Awake()
     {
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour
     {
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         Moses = GameObject.FindGameObjectWithTag("Moses");
+        MosesDead = false;
     }
 
     //Stat accessors
@@ -73,10 +75,16 @@ public class GameController : MonoBehaviour
         return bibles;
     }
 
+    public bool getMosesDead()
+    {
+        return MosesDead;
+    }
+
     //Stat updaters
     public void MosesDied()
     {
         //Make Moses stop moving and update lives count
+        MosesDead = true;
         Moses.GetComponent<MosesMovement>().enabled = false;
         MosesLives--;
         canvas.GetComponent<StatBoard>().UpdateLives();
