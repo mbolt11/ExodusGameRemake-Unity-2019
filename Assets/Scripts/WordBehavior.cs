@@ -12,14 +12,11 @@ public class WordBehavior : MonoBehaviour
     {
         board = BoardState.getBoard();
         Moses = GameObject.FindGameObjectWithTag("Moses");
-        //Destroy(gameObject, .5f);
+        Destroy(gameObject, .4f);
     }
 
-    //Update is called once per frame
-    private void OnCollision2DEnter(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Collision happened");
-
         //Keeps them from destroying each other
         if(other.gameObject.tag.Equals("Word"))
         {
@@ -46,10 +43,14 @@ public class WordBehavior : MonoBehaviour
         }
 
         if (other.gameObject.tag.Equals("Soldier"))
+        {
             other.gameObject.GetComponent<EnemyHealth>().WordHit();
+        }
 
         if (other.gameObject.tag.Equals("Wood Block"))
+        {
             other.gameObject.GetComponent<BlockController>().WordHit();
+        }
 
         Moses.GetComponent<MosesShoot>().subtractShot();
         Destroy(gameObject);
