@@ -6,17 +6,26 @@ using UnityEngine.Tilemaps;
 public class WordBehavior : MonoBehaviour
 {
     private BoardState board;
-    private int wordpower;
+    private GameObject Moses;
 
     public void Start()
     {
         board = BoardState.getBoard();
-        Destroy(gameObject, .5f);
+        Moses = GameObject.FindGameObjectWithTag("Moses");
+        //Destroy(gameObject, .5f);
     }
 
     //Update is called once per frame
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollision2DEnter(Collision2D other)
     {
+        Debug.Log("Collision happened");
+
+        //Keeps them from destroying each other
+        if(other.gameObject.tag.Equals("Word"))
+        {
+            return;
+        }
+
         if (other.gameObject.tag.Equals("Dirt"))
         {
             if (other.gameObject.GetComponent<HidingTreasure>().showTreasure())
@@ -41,7 +50,8 @@ public class WordBehavior : MonoBehaviour
 
         if (other.gameObject.tag.Equals("Wood Block"))
             other.gameObject.GetComponent<BlockController>().WordHit();
-            
+
+        Moses.GetComponent<MosesShoot>().subtractShot();
         Destroy(gameObject);
     }
 }

@@ -1272,6 +1272,15 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1457866573}
+    - target: {fileID: 635006234, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
+      propertyPath: speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 635006234, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
+      propertyPath: word
+      value: 
+      objectReference: {fileID: 5568805418043748663, guid: 4602613ed9855419fb79a34f66aacb20,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb7c5a577493b4386bfbd6edc6db90a3, type: 3}
 --- !u!1001 &223041227

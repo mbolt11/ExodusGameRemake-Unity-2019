@@ -11,10 +11,10 @@ public class LevelControl : MonoBehaviour
     private bool treasureQuotaMet;
     private int clockTime;
     private bool levelComplete;
+    private int treasureQuota;
 
     //These don't carry over but do vary from level to level
     private int mannaQuota;
-    private int treasureQuota;
     private bool finished;
 
     public GameObject canvas;

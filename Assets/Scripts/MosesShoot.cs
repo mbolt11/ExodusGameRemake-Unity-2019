@@ -8,12 +8,12 @@ public class MosesShoot : MonoBehaviour
     public Transform spawnRight, spawnLeft, spawnDown, spawnUp, moses;
     public float speed;
 
-    private GameObject wordExist;
+    private int shots = 0;
 
     // Update is called once per frame
     void Update () 
     {
-        if(wordExist == null)
+        if( (GameController.controller.getWordsAtOnce() - shots) > 0 )
         {
             if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1"))
             {
@@ -45,10 +45,31 @@ public class MosesShoot : MonoBehaviour
                     ySpeed = 0;
                 }
 
+                //GameObject wordInstance = Instantiate(word, direction.position, Quaternion.Euler(new Vector3(0f, 0f, 0f))) as GameObject;
                 Rigidbody2D wordInstance = Instantiate(word, direction.position, Quaternion.Euler(new Vector3(0f, 0f, 0f))) as Rigidbody2D;
-                wordExist = wordInstance.gameObject;
+                StartCoroutine(DestroyShot(wordInstance));
+                shots++;
                 wordInstance.velocity = new Vector2(xSpeed, ySpeed);
+                //wordInstance.transform.Translate(xSpeed, ySpeed,0);
             }
         }
 	}
+
+    //This is called from the WordBehavior script when a word is destroyed by hitting something
+    public void subtractShot()
+    {
+        shots--;
+    }
+
+    //Coroutine which destroys the shot instance after an amount of time
+    private IEnumerator DestroyShot(Rigidbody2D theShot)
+    {
+        yield return new WaitForSeconds(.3f);
+
+        if(theShot != null)
+        {
+            Destroy(theShot.gameObject);
+            shots--;
+        }
+    }
 }

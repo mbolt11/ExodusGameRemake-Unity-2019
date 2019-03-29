@@ -70,6 +70,18 @@ public class MosesCollision : MonoBehaviour
             levelControl.GetComponent<LevelControl>().AtFinish();
             GameController.controller.LoadNextLevel();
         }
+
+        //The Word of God PowerUp: adds one to the amount of spoken words shot at a time, max is 5
+        if(other.gameObject.tag == "WOG")
+        {
+            GameController.controller.addWordAtOnce();
+        }
+
+        //The Authority of God Powerup: adds to the amount of distance a spoken word can travel
+        if(other.gameObject.tag == "AOG")
+        {
+
+        }
     }
 
     public void mosesDeath()

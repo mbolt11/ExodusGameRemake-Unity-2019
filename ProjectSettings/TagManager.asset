@@ -15,6 +15,9 @@ TagManager:
   - Moses
   - Bible
   - Blue Dirt
+  - WOG
+  - AOG
+  - Word
   layers:
   - Default
   - TransparentFX

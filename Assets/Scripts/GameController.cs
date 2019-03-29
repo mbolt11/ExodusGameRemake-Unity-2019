@@ -15,11 +15,12 @@ public class GameController : MonoBehaviour
     public GameObject Moses;
     private int currentSceneNum;
 
-    private int MosesLives = 5;
+    private int MosesLives;
     private int points;
-    private int currentLevel = 1;
+    private int currentLevel;
     private int bibles;
     private bool MosesDead = false;
+    private int wordsAtOnce;
 
     void Awake()
     {
@@ -42,6 +43,7 @@ public class GameController : MonoBehaviour
         //Initialize variables at beginning of game
         MosesLives = 5;
         points = 0;
+        wordsAtOnce = 1;
         currentLevel = 1;
         currentSceneNum = SceneManager.GetActiveScene().buildIndex;
     }
@@ -80,10 +82,16 @@ public class GameController : MonoBehaviour
         return MosesDead;
     }
 
+    public int getWordsAtOnce()
+    {
+        return wordsAtOnce;
+    }
+
     //Stat updaters
     public void MosesDied()
     {
-        //Make Moses stop moving and update lives count
+        //Make Moses stop moving and update counts
+        wordsAtOnce = 1;
         MosesDead = true;
         Moses.GetComponent<MosesMovement>().enabled = false;
         MosesLives--;
@@ -99,6 +107,12 @@ public class GameController : MonoBehaviour
         {
             canvas.GetComponent<StatBoard>().UpdateMessage("Game Over!!");
         }
+    }
+
+    public void addWordAtOnce()
+    {
+        if(wordsAtOnce < 5)
+            wordsAtOnce++;
     }
 
     public void addPoints(int points_in)
