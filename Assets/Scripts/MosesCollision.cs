@@ -8,9 +8,14 @@ public class MosesCollision : MonoBehaviour
     public GameObject canvas;
     private BoardState board;
 
+    private bool invincible;
+    private GameObject[] enemies;
+
     private void Start()
     {
-       board = BoardState.getBoard();
+        board = BoardState.getBoard();
+        invincible = false;
+        enemies = GameObject.FindGameObjectsWithTag("Soldier");
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -56,7 +61,7 @@ public class MosesCollision : MonoBehaviour
         }
 
         //For colliding with enemy- dies
-        if (other.gameObject.tag == "Soldier")
+        if (other.gameObject.tag == "Soldier" && !invincible)
         {
             //Print message and start die logic
             canvas.GetComponent<StatBoard>().UpdateMessage("You died!");
@@ -74,13 +79,33 @@ public class MosesCollision : MonoBehaviour
         //The Word of God PowerUp: adds one to the amount of spoken words shot at a time, max is 5
         if(other.gameObject.tag == "WOG")
         {
+            Destroy(other.gameObject);
             GameController.controller.addWordAtOnce();
         }
 
         //The Authority of God Powerup: adds to the amount of distance a spoken word can travel
         if(other.gameObject.tag == "AOG")
         {
+            Destroy(other.gameObject);
+            GetComponent<MosesShoot>().addWordLifetime();
+        }
 
+        //The invincibility powerup: makes Moses invincible for 20 seconds
+        if(other.gameObject.tag == "Invincible")
+        {
+            Destroy(other.gameObject);
+
+            invincible = true;
+            canvas.GetComponent<StatBoard>().InvincibleImageOnOff();
+
+            //Turn off the colliders of all the enemies so Moses can go through them
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemies[i].GetComponent<BoxCollider2D>().enabled = false;
+            }
+
+            //Start the coroutine to end invincibility after 20 sec
+            StartCoroutine(Invinsibility());
         }
     }
 
@@ -88,6 +113,19 @@ public class MosesCollision : MonoBehaviour
     {
         canvas.GetComponent<StatBoard>().UpdateMessage("You died!");
         GameController.controller.MosesDied();
+    }
+
+    private IEnumerator Invinsibility()
+    {
+        yield return new WaitForSeconds(20f);
+        invincible = false;
+        canvas.GetComponent<StatBoard>().InvincibleImageOnOff();
+
+        //Turn all enemy colliders back on
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
 }
 

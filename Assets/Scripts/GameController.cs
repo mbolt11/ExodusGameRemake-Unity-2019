@@ -20,7 +20,9 @@ public class GameController : MonoBehaviour
     private int currentLevel;
     private int bibles;
     private bool MosesDead = false;
-    private int wordsAtOnce;
+
+    //The amount of words that can be shot at once according to powerup
+    public int wordsAtOnce;
 
     void Awake()
     {
@@ -80,11 +82,6 @@ public class GameController : MonoBehaviour
     public bool getMosesDead()
     {
         return MosesDead;
-    }
-
-    public int getWordsAtOnce()
-    {
-        return wordsAtOnce;
     }
 
     //Stat updaters

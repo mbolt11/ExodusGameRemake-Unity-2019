@@ -14,29 +14,28 @@ public class MosesShoot : MonoBehaviour
     private float xSpeed, ySpeed;
     private float nextFire;
     private float fireRate;
+    private float wordLifeTime;
 
     private void Start()
     {
-        fireRate = .4f;
+        fireRate = .1f;
+        wordLifeTime = .5f;
         direction = spawnDown;
         xSpeed = 0;
         ySpeed = -speed;
     }
 
-    public void increaseFireRate()
-    {
-        fireRate -= .1f;
-    }
-
     // Update is called once per frame
     void Update () 
     {
-        //if( (GameController.controller.getWordsAtOnce() - shots) > 0 )
-        if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1"))
+        //In case the shot count gets below zero, reset... this may not be best solution
+        if (shots < 0)
+            shots = 0;
+
+        if (Input.GetButton("Fire1"))
         {
-            //float xSpeed, ySpeed;
+            //Get the direction of the shot
             string lastMove = moses.GetComponent<MosesMovement>().getLastMove();
-            //Transform direction;
             if (lastMove.Equals("UP"))
             {
                 direction = spawnUp;
@@ -62,14 +61,8 @@ public class MosesShoot : MonoBehaviour
                 ySpeed = 0;
             }
 
-            /*GameObject wordInstance = Instantiate(word, direction.position, Quaternion.Euler(new Vector3(0f, 0f, 0f))) as GameObject;
-            Rigidbody2D wordInstance = Instantiate(word, direction.position, Quaternion.Euler(new Vector3(0f, 0f, 0f))) as Rigidbody2D;
-            StartCoroutine(DestroyShot(wordInstance));
-            shots++;
-            wordInstance.velocity = new Vector2(xSpeed, ySpeed);
-            wordInstance.transform.Translate(xSpeed, ySpeed,0);*/
-
-            if ((Time.time > nextFire) || shots <= 0)
+            //Shoot the word if it is allowed
+            if ((Time.time > nextFire) && shots < GameController.controller.wordsAtOnce)
             {
                 nextFire = Time.time + fireRate;
                 shots++;
@@ -86,10 +79,16 @@ public class MosesShoot : MonoBehaviour
         shots--;
     }
 
+    //This is called when you get the Authority of God powerup
+    public void addWordLifetime()
+    {
+        wordLifeTime += .2f;
+    }
+
     //Coroutine which destroys the shot instance after an amount of time
     private IEnumerator DestroyShot(Rigidbody2D theShot)
     {
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(wordLifeTime);
 
         if(theShot != null)
         {
@@ -97,14 +96,4 @@ public class MosesShoot : MonoBehaviour
             Destroy(theShot.gameObject);
         }
     }
-
-    /*private IEnumerator Firing()
-    {
-        //Wait the amount of time according to how many words already exist/are allowed
-        yield return new WaitForSeconds(timeToNextShot);
-
-        //Instantiate the shot and set in motion
-        Rigidbody2D wordInstance = Instantiate(word, direction.position, Quaternion.Euler(new Vector3(0f, 0f, 0f))) as Rigidbody2D;
-        wordInstance.velocity = new Vector2(xSpeed, ySpeed);
-    }*/
 }

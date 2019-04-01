@@ -14,6 +14,7 @@ public class StatBoard : MonoBehaviour
     public Text time;
     public Text bibles;
     public Text message;
+    public Image invincible;
 
     public GameObject levelControl;
 
@@ -21,6 +22,7 @@ public class StatBoard : MonoBehaviour
     void Start()
     {
         message.gameObject.SetActive(false);
+        invincible.enabled = false;
 
         level.text = "Level " + GameController.controller.getLevelNum();
         score.text = "Score:\n" + GameController.controller.getPoints();
@@ -71,5 +73,19 @@ public class StatBoard : MonoBehaviour
     public void UpdateTime()
     {
         time.text = "Time: " + levelControl.GetComponent<LevelControl>().getTime();
+    }
+
+    public void InvincibleImageOnOff()
+    {
+        if(invincible.enabled)
+        {
+            invincible.enabled = false;
+            lives.text = "Lives: " + GameController.controller.getLives();
+        }
+        else
+        {
+            invincible.enabled = true;
+            lives.text = "Lives: " + GameController.controller.getLives() + "*";
+        }
     }
 }
