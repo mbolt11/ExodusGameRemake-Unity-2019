@@ -12,6 +12,8 @@ public class SoldierMovement : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
 
+    private Vector2 location, locationBoard2; //(row, col)
+
     //For changing the image when he changes direction
     public Sprite[] images;
     private SpriteRenderer renderer;
@@ -20,7 +22,7 @@ public class SoldierMovement : MonoBehaviour
     void Start()
     {
         GameObject controller = GameObject.FindGameObjectWithTag("Controller");
-        boardState = BoardState.getBoard();
+        boardState = BoardState.boardState;
 
         //Get renderer and set initial image
         renderer = GetComponent<SpriteRenderer>();
@@ -29,6 +31,9 @@ public class SoldierMovement : MonoBehaviour
         //location and destination should be equal during start up
         locationBoard = new Vector2(row, col);
         destinationBoard = new Vector2(row, col);
+
+        location = new Vector2(transform.position.x, transform.position.y);
+        locationBoard2 = boardState.findBoardLocation(transform);
 
         //location = gameObject.transform.position;
         destination = new Vector2(transform.position.x, transform.position.y);
@@ -107,7 +112,18 @@ public class SoldierMovement : MonoBehaviour
         if(!GameController.controller.getMosesDead())
             transform.Translate(moveHorizontal, moveVertical, 0f);
         //Debug.Log(transform.position.x);
-        
+
+        //detect movement and update the board
+        /*if (Mathf.Abs(location.x - transform.position.x) > 0.9 || Mathf.Abs(location.y - transform.position.y) > 0.9)
+        {
+            //Debug.Log("MOVE DETECTED");
+            locationBoard2 = boardState.findBoardLocation(transform);
+            boardState.updateBoard(locationBoard2, 0);
+            location.Set(transform.position.x, transform.position.y);
+            locationBoard2 = boardState.findBoardLocation(transform);
+            boardState.updateBoard(locationBoard2, 1);
+        }*/
+
     }
 
     bool reachedDestination(Vector2 dest_in)

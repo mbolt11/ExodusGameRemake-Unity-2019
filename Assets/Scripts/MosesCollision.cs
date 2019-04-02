@@ -13,7 +13,7 @@ public class MosesCollision : MonoBehaviour
 
     private void Start()
     {
-        board = BoardState.getBoard();
+        board = BoardState.boardState;
         invincible = false;
         enemies = GameObject.FindGameObjectsWithTag("Soldier");
     }

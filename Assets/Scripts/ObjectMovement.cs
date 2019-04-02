@@ -13,7 +13,7 @@ public class ObjectMovement : MonoBehaviour //attatched to movable interactable 
     void Start()
     {
         location = new Vector2(transform.position.x, transform.position.y);
-        board = BoardState.getBoard();
+        board = BoardState.boardState;
         locationBoard = board.findBoardLocation(transform);
         restrictMoses = false;
     }

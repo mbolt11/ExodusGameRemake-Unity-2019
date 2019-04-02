@@ -9,7 +9,7 @@ public class DestroyDirt : MonoBehaviour
 
     private void Start()
     {
-        board = BoardState.getBoard();
+        board = BoardState.boardState;
     }
 
     public void BlueDirtHit()

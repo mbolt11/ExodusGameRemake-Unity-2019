@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 114630536243697280}
   - component: {fileID: 635006234}
   - component: {fileID: 635006235}
+  - component: {fileID: 1793096570332034937}
   m_Layer: 0
   m_Name: Moses
   m_TagString: Moses
@@ -333,3 +334,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4597001, y: 0.93930006}
   m_EdgeRadius: 0
+--- !u!114 &1793096570332034937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887339764103046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b0f6012b75644aa91cbd6e319b322f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  word: {fileID: 50913468891676974, guid: 4602613ed9855419fb79a34f66aacb20, type: 3}
+  spawnRight: {fileID: 4442201691675070}
+  spawnLeft: {fileID: 0}
+  spawnDown: {fileID: 0}
+  spawnUp: {fileID: 0}
+  moses: {fileID: 4599312398620000}
+  speed: 4

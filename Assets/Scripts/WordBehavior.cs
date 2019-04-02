@@ -10,7 +10,7 @@ public class WordBehavior : MonoBehaviour
 
     public void Start()
     {
-        board = BoardState.getBoard();
+        board = BoardState.boardState;
         Moses = GameObject.FindGameObjectWithTag("Moses");
     }
 

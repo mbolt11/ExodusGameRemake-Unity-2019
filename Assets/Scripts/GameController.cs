@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     private int bibles;
     private bool MosesDead = false;
 
+    private BoardState board;
+
     //The amount of words that can be shot at once according to powerup
     public int wordsAtOnce;
 
@@ -46,7 +48,7 @@ public class GameController : MonoBehaviour
         MosesLives = 5;
         points = 0;
         wordsAtOnce = 1;
-        currentLevel = 1;
+        currentLevel = 3;
         currentSceneNum = SceneManager.GetActiveScene().buildIndex;
     }
 
@@ -56,6 +58,12 @@ public class GameController : MonoBehaviour
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         Moses = GameObject.FindGameObjectWithTag("Moses");
         MosesDead = false;
+    }
+
+    public void setUpBoard()
+    {
+        board = BoardState.boardState;
+        board.loadCurrectLevel(currentLevel);
     }
 
     //Stat accessors

@@ -60,6 +60,9 @@ public class LevelControl : MonoBehaviour
                 break;
         }
 
+        //set up the board
+        GameController.controller.setUpBoard();
+
         //The clock countdown
         StartCoroutine(Countdown());
     }
