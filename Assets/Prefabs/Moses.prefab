@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440706838}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.01, y: 0.82, z: -1.1228665}
+  m_LocalPosition: {x: 0.01, y: 0.86, z: -1.1228665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4599312398620000}
@@ -84,7 +84,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743228654}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.6, y: 0.03, z: -1.1228665}
+  m_LocalPosition: {x: -0.66, y: 0.03, z: -1.1228665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4599312398620000}
@@ -152,7 +152,7 @@ Transform:
   m_GameObject: {fileID: 1887339764103046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.49, y: 4.52, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.088, y: 1, z: 1}
   m_Children:
   - {fileID: 4442201691675070}
   - {fileID: 1743228655}
@@ -300,13 +300,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b0f6012b75644aa91cbd6e319b322f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  word: {fileID: 50913468891676974, guid: 4602613ed9855419fb79a34f66aacb20, type: 3}
+  word: {fileID: 5568805418043748663, guid: 4602613ed9855419fb79a34f66aacb20, type: 3}
   spawnRight: {fileID: 4442201691675070}
   spawnLeft: {fileID: 1743228655}
   spawnDown: {fileID: 1690964368}
   spawnUp: {fileID: 440706839}
   moses: {fileID: 4599312398620000}
-  speed: 4
+  speed: 6
 --- !u!61 &635006235
 BoxCollider2D:
   m_ObjectHideFlags: 0

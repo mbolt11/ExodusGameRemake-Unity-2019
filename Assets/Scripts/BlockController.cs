@@ -31,7 +31,7 @@ public class BlockController : MonoBehaviour
         //soldier crushed
         if (other.gameObject.tag.Equals("Soldier"))
         {
-            if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.y) > 0)
+            if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.y) > 1)
                 Destroy(other.gameObject);
             else
             {
@@ -41,7 +41,8 @@ public class BlockController : MonoBehaviour
 
         if(other.gameObject.tag.Equals("Moses"))
         {
-            if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.y) > 0)
+            //no rigidbody on wood blocks so this throws an error
+            if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.y) > 1)
                 other.gameObject.GetComponent<MosesCollision>().mosesDeath();
         }
     }
