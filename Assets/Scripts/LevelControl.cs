@@ -33,15 +33,24 @@ public class LevelControl : MonoBehaviour
         manna = 0;
         mannaQuotaMet = false;
         treasure = 0;
-        treasureQuota = 5;
         treasureQuotaMet = false;
         clockTime = 300;
         levelComplete = false;
         finish.SetActive(false);
         finished = false;
 
-        //Initialize the variables that do vary from level to level
-        switch (GameController.controller.getLevelNum())
+        //set up the board
+        GameController.controller.setUpBoard();
+
+        //The clock countdown
+        StartCoroutine(Countdown());
+    }
+
+    //Called by GameController- set manna quota
+    public void SetQuotas(int levelnum)
+    {
+        treasureQuota = 5;
+        switch (levelnum)
         {
             case 1:
                 mannaQuota = 82;
@@ -53,18 +62,12 @@ public class LevelControl : MonoBehaviour
                 mannaQuota = 86;
                 break;
             case 4:
-                mannaQuota = 1000;
+                mannaQuota = 50;
                 break;
             case 5:
                 mannaQuota = 1000;
                 break;
         }
-
-        //set up the board
-        GameController.controller.setUpBoard();
-
-        //The clock countdown
-        StartCoroutine(Countdown());
     }
 
     //Accessors for stats to go in canvas

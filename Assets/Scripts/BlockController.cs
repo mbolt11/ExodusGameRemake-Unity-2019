@@ -9,13 +9,16 @@ public class BlockController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 2;
+        health = 3;
     }
 
     public void WordHit()
     {
-        if (!tag.Equals("Blue Block"))
+        if (tag.Equals("Wood Block"))
+        {
             health--;
+            Debug.Log("Lost health");
+        }
     }
 
     private void Update()

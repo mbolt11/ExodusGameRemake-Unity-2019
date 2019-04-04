@@ -80,14 +80,14 @@ public class MosesCollision : MonoBehaviour
         if(other.gameObject.tag == "WOG")
         {
             Destroy(other.gameObject);
-            GameController.controller.addWordAtOnce();
+            GameController.controller.AddWordAtOnce();
         }
 
         //The Authority of God Powerup: adds to the amount of distance a spoken word can travel
         if(other.gameObject.tag == "AOG")
         {
             Destroy(other.gameObject);
-            GetComponent<MosesShoot>().addWordLifetime();
+            GameController.controller.AddWordLifetime();
         }
 
         //The invincibility powerup: makes Moses invincible for 20 seconds

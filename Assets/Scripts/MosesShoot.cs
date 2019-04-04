@@ -5,21 +5,18 @@ using UnityEngine;
 public class MosesShoot : MonoBehaviour 
 {
     public Rigidbody2D word;
-    public Transform spawnRight, spawnLeft, spawnDown, spawnUp, moses;
+    public Transform spawnRight, spawnLeft, spawnDown, spawnUp;
     public float speed;
 
     private int shots = 0;
-    private float timeToNextShot;
     private Transform direction;
     private float xSpeed, ySpeed;
     private float nextFire;
     private float fireRate;
-    private float wordLifeTime;
 
     private void Start()
     {
-        fireRate = .1f;
-        wordLifeTime = .5f;
+        fireRate = .2f;
         direction = spawnDown;
         xSpeed = 0;
         ySpeed = -speed;
@@ -35,7 +32,7 @@ public class MosesShoot : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             //Get the direction of the shot
-            string lastMove = moses.GetComponent<MosesMovement>().getLastMove();
+            string lastMove = GetComponent<MosesMovement>().getLastMove();
             if (lastMove.Equals("UP"))
             {
                 direction = spawnUp;
@@ -79,16 +76,15 @@ public class MosesShoot : MonoBehaviour
         shots--;
     }
 
-    //This is called when you get the Authority of God powerup
-    public void addWordLifetime()
+    public void ChangeFireRate(float rate)
     {
-        wordLifeTime += .2f;
+        fireRate = rate;
     }
 
     //Coroutine which destroys the shot instance after an amount of time
     private IEnumerator DestroyShot(Rigidbody2D theShot)
     {
-        yield return new WaitForSeconds(wordLifeTime);
+        yield return new WaitForSeconds(GameController.controller.wordLifeTime);
 
         if(theShot != null)
         {

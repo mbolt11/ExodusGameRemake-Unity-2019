@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 
     public GameObject canvas;
     public GameObject Moses;
+    public GameObject levelcontrol;
     private int currentSceneNum;
 
     private int MosesLives;
@@ -23,8 +24,9 @@ public class GameController : MonoBehaviour
 
     private BoardState board;
 
-    //The amount of words that can be shot at once according to powerup
+    //The amount/lifetime of words that can be shot at once according to powerup
     public int wordsAtOnce;
+    public float wordLifeTime;
 
     void Awake()
     {
@@ -47,9 +49,11 @@ public class GameController : MonoBehaviour
         //Initialize variables at beginning of game
         MosesLives = 5;
         points = 0;
-        wordsAtOnce = 1;
-        currentLevel = 3;
+        currentLevel = 1;
+        levelcontrol.GetComponent<LevelControl>().SetQuotas(currentLevel);
         currentSceneNum = SceneManager.GetActiveScene().buildIndex;
+        wordsAtOnce = 1;
+        wordLifeTime = .3f;
     }
 
     //Method to re-initialize any gameobject references in this script whenever the scene is loaded
@@ -57,6 +61,7 @@ public class GameController : MonoBehaviour
     {
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         Moses = GameObject.FindGameObjectWithTag("Moses");
+        levelcontrol = GameObject.FindGameObjectWithTag("Level Control");
         MosesDead = false;
     }
 
@@ -114,10 +119,22 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void addWordAtOnce()
+    //This is called when you get the word of God powerup
+    public void AddWordAtOnce()
     {
         if(wordsAtOnce < 5)
             wordsAtOnce++;
+
+        if(wordsAtOnce == 3)
+            Moses.GetComponent<MosesShoot>().ChangeFireRate(.15f);
+        if(wordsAtOnce == 4)
+            Moses.GetComponent<MosesShoot>().ChangeFireRate(.1f);
+    }
+
+    //This is called when you get the Authority of God powerup
+    public void AddWordLifetime()
+    {
+        wordLifeTime += .2f;
     }
 
     public void addPoints(int points_in)
@@ -156,5 +173,6 @@ public class GameController : MonoBehaviour
         currentSceneNum++;
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(currentSceneNum);
+        levelcontrol.GetComponent<LevelControl>().SetQuotas(currentLevel);
     }
 }

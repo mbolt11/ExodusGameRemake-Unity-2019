@@ -12283,7 +12283,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
   Moses: {fileID: 0}
+  levelcontrol: {fileID: 0}
   wordsAtOnce: 0
+  wordLifeTime: 0
 --- !u!4 &1906794192
 Transform:
   m_ObjectHideFlags: 0
@@ -12563,7 +12565,7 @@ GameObject:
   - component: {fileID: 1983299341}
   m_Layer: 0
   m_Name: Level Controller
-  m_TagString: Untagged
+  m_TagString: Level Control
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
