@@ -23,7 +23,7 @@ public class BlockController : MonoBehaviour
 
     private void Update()
     {
-        if (health == 0 && !tag.Equals("Blue Block"))
+        if (health == 0 && tag.Equals("Wood Block"))
         {
             Destroy(gameObject);
         }
