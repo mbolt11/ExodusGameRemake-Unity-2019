@@ -65,7 +65,7 @@ public class LevelControl : MonoBehaviour
                 mannaQuota = 50;
                 break;
             case 5:
-                mannaQuota = 1000;
+                mannaQuota = 35;
                 break;
         }
     }
