@@ -214,7 +214,7 @@ public class SoldierMovement : MonoBehaviour
             }
         }
 
-        Debug.Log("DIDNT FIND VALID DIRECTION: " + destIndex);
+        //Debug.Log("DIDNT FIND VALID DIRECTION: " + destIndex);
         return destIndex;
     }
 

@@ -24,6 +24,8 @@ public class StatBoard : MonoBehaviour
         message.gameObject.SetActive(false);
         invincible.enabled = false;
 
+        levelControl.GetComponent<LevelControl>().SetQuotas(GameController.controller.getLevelNum());
+
         level.text = "Level " + GameController.controller.getLevelNum();
         score.text = "Score:\n" + GameController.controller.getPoints();
         lives.text = "Lives: " + GameController.controller.getLives();

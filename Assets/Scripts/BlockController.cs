@@ -5,11 +5,13 @@ using UnityEngine;
 public class BlockController : MonoBehaviour
 {
     public int health;
+    private bool hitonce;
 
     // Start is called before the first frame update
     void Start()
     {
         health = 3;
+        hitonce = false;
     }
 
     public void WordHit()
@@ -23,7 +25,7 @@ public class BlockController : MonoBehaviour
 
     private void Update()
     {
-        if (health == 0 && tag.Equals("Wood Block"))
+        if (health <= 0 && tag.Equals("Wood Block"))
         {
             Destroy(gameObject);
         }
@@ -35,18 +37,24 @@ public class BlockController : MonoBehaviour
         if (other.gameObject.tag.Equals("Soldier"))
         {
             if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.y) > 1)
+            {
                 Destroy(other.gameObject);
+            }
             else
             {
                 Debug.Log("block velocity: " + gameObject.GetComponent<Rigidbody2D>().velocity.magnitude);
             }
         }
 
-        if(other.gameObject.tag.Equals("Moses"))
+        if(other.gameObject.tag.Equals("Moses") && !hitonce)
         {
             //no rigidbody on wood blocks so this throws an error
             if (Mathf.Abs(gameObject.GetComponent<Rigidbody2D>().velocity.y) > 1)
+            {
+                hitonce = true;
                 other.gameObject.GetComponent<MosesCollision>().mosesDeath();
+                Destroy(gameObject);
+            }
         }
     }
 }

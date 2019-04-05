@@ -29,6 +29,8 @@ public class MosesMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //GetComponent<Rigidbody2D>().
+
         //His movement based on arrow keys
         float moveHorizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
         float moveVertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;

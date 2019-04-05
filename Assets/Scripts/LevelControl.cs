@@ -39,8 +39,9 @@ public class LevelControl : MonoBehaviour
         finish.SetActive(false);
         finished = false;
 
-        //set up the board
+        //set up the board and correct stats
         GameController.controller.setUpBoard();
+        SetQuotas(GameController.controller.getLevelNum());
 
         //The clock countdown
         StartCoroutine(Countdown());

@@ -50,7 +50,6 @@ public class GameController : MonoBehaviour
         MosesLives = 5;
         points = 0;
         currentLevel = 1;
-        levelcontrol.GetComponent<LevelControl>().SetQuotas(currentLevel);
         currentSceneNum = SceneManager.GetActiveScene().buildIndex;
         wordsAtOnce = 1;
         wordLifeTime = .3f;
@@ -167,12 +166,17 @@ public class GameController : MonoBehaviour
     }
 
     //Coroutine to be called when completing a level to move on to the next
-    public IEnumerator LoadNextLevel()
+    public void LoadNextLevel()
     {
+        StartCoroutine(WaitToLoad());
+    }
+
+    public IEnumerator WaitToLoad()
+    {
+        yield return new WaitForSeconds(2);
+        Debug.Log("should be loading next level");
         currentLevel++;
         currentSceneNum++;
-        yield return new WaitForSeconds(2);
         SceneManager.LoadScene(currentSceneNum);
-        levelcontrol.GetComponent<LevelControl>().SetQuotas(currentLevel);
     }
 }
