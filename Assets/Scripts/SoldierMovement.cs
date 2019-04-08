@@ -34,7 +34,7 @@ public class SoldierMovement : MonoBehaviour
 
         location = new Vector2(transform.position.x, transform.position.y);
         locationBoard2 = boardState.findBoardLocation(transform);
-        Debug.Log(name + " boardLocation: " + locationBoard2.x + " " + locationBoard2.y);
+        //Debug.Log(name + " boardLocation: " + locationBoard2.x + " " + locationBoard2.y);
 
         //location = gameObject.transform.position;
         destination = new Vector2(transform.position.x, transform.position.y);
@@ -115,13 +115,13 @@ public class SoldierMovement : MonoBehaviour
         //Debug.Log(transform.position.x);
 
         //detect movement and update the board
-        if(!locationBoard2.Equals(boardState.findBoardLocation(transform)))
+        /*if(!locationBoard2.Equals(boardState.findBoardLocation(transform)))
         {
             //Debug.Log("MOVE DETECTED");
             boardState.updateBoard(locationBoard2, 0);
             locationBoard2 = boardState.findBoardLocation(transform);
             boardState.updateBoard(locationBoard2, 1);
-        }
+        }*/
 
     }
 

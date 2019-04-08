@@ -157,7 +157,7 @@ public class BoardState : MonoBehaviour
             levelString += "\n";
         }
 
-        Debug.Log(levelString);
+        //Debug.Log(levelString);
     }
 
     //level 1 top left corner x:-5.5 y:5.5

@@ -9,6 +9,8 @@ public class ObjectMovement : MonoBehaviour //attatched to movable interactable 
     private bool restrictMoses;
     private string pushDirection;
     private GameObject mosesG;
+    private bool moving;
+    private GameObject objectBelow;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class ObjectMovement : MonoBehaviour //attatched to movable interactable 
             //Debug.Log(name + " boardPos " + locationBoard.x + " " + locationBoard.y);
         }
         restrictMoses = false;
+        moving = false;
     }
 
     public Vector2 getBoardLocation()
@@ -28,25 +31,44 @@ public class ObjectMovement : MonoBehaviour //attatched to movable interactable 
         return locationBoard;
     }
 
+    public void changeToMove()
+    {
+        if(!moving)
+        {
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.5f;
+            moving = true;
+        }
+    }
+
+    public void changeToNotMove()
+    {
+        if (moving)
+        {
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            moving = false;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        /*
-         if(Mathf.Abs(location.x - transform.position.x) > 0.9 || Mathf.Abs(location.y - transform.position.y) > 0.9)
-         */
+        //check space below, if space below equals 0, then turn on gravity if previously set to 0
+        /*if(name.Equals("Wood Block (3)") && board.locationValue((int)locationBoard.x + 1, (int)locationBoard.y) == 0)
+        {
+            Debug.Log(name + " "+moving + " " + gameObject.GetComponent<Rigidbody2D>().gravityScale);
+        }*/
+
+        if(board.locationValue((int)locationBoard.x + 1, (int)locationBoard.y) == 0 && !moving)
+        {
+            moving = true;
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.5f;
+        }
 
         //detect movement and update the board
         if(!locationBoard.Equals(board.findBoardLocation(transform)))
         {
-            if (gameObject.name == "Wood Block (4)")
-            {
-                //Debug.Log(name + " MOVE DETECTED");
-            }
             board.updateBoard(locationBoard, 0);
-            if (gameObject.name == "Wood Block (4)")
-            {
-                //Debug.Log(name + " emptyboardPos " + locationBoard.x + " " + locationBoard.y);
-            }
+
             locationBoard = board.findBoardLocation(transform);
             location.Set(transform.position.x, transform.position.y);
             board.updateBoard(locationBoard, 1);
@@ -87,13 +109,15 @@ public class ObjectMovement : MonoBehaviour //attatched to movable interactable 
         }
 
         //if boulders land on pots without high y velocity, then they should not move the pots
-        if (((gameObject.tag.Equals("Wood Block") || gameObject.tag.Equals("Blue Block"))) && collision.gameObject.tag.Equals("Manna"))
+        if ((gameObject.tag.Equals("Wood Block") || gameObject.tag.Equals("Blue Block")) && collision.gameObject.tag.Equals("Manna"))
         {
-            if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 1)
+            if (gameObject.GetComponent<Rigidbody2D>().velocity.y > 2)
                 Destroy(collision.gameObject);
             else
             {
                 gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+                moving = false;
+                //Debug.Log(name + " should not have gravity");
             }
 
         }
@@ -106,12 +130,6 @@ public class ObjectMovement : MonoBehaviour //attatched to movable interactable 
             restrictMoses = false;
             mosesG.GetComponent<MosesMovement>().freeMovement(pushDirection);
         }
-
-        if (collision.gameObject.tag.Equals("Manna"))
-        {
-            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.5f;
-        }
-
     }
 
     private bool validPushDirection(string direction)

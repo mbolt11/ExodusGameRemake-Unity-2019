@@ -15,7 +15,6 @@ public class MosesCollision : MonoBehaviour
     {
         board = BoardState.boardState;
         invincible = false;
-        enemies = GameObject.FindGameObjectsWithTag("Soldier");
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -99,6 +98,7 @@ public class MosesCollision : MonoBehaviour
             canvas.GetComponent<StatBoard>().InvincibleImageOnOff();
 
             //Turn off the colliders of all the enemies so Moses can go through them
+            enemies = GameObject.FindGameObjectsWithTag("Soldier");
             for (int i = 0; i < enemies.Length; i++)
             {
                 enemies[i].GetComponent<BoxCollider2D>().enabled = false;
@@ -122,6 +122,7 @@ public class MosesCollision : MonoBehaviour
         canvas.GetComponent<StatBoard>().InvincibleImageOnOff();
 
         //Turn all enemy colliders back on
+        enemies = GameObject.FindGameObjectsWithTag("Soldier");
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i].GetComponent<BoxCollider2D>().enabled = true;
