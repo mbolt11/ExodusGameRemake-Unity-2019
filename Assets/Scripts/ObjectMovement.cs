@@ -15,21 +15,52 @@ public class ObjectMovement : MonoBehaviour //attatched to movable interactable 
         location = new Vector2(transform.position.x, transform.position.y);
         board = BoardState.boardState;
         locationBoard = board.findBoardLocation(transform);
+        if (name == "Wood Block (4)")
+        {
+            //Debug.Log(name + "transform location " + transform.position.x + " " + transform.position.y);
+            //Debug.Log(name + " boardPos " + locationBoard.x + " " + locationBoard.y);
+        }
         restrictMoses = false;
+    }
+
+    public Vector2 getBoardLocation()
+    {
+        return locationBoard;
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
+         if(Mathf.Abs(location.x - transform.position.x) > 0.9 || Mathf.Abs(location.y - transform.position.y) > 0.9)
+         */
+
         //detect movement and update the board
-        if(Mathf.Abs(location.x - transform.position.x) > 0.9 || Mathf.Abs(location.y - transform.position.y) > 0.9)
+        if(!locationBoard.Equals(board.findBoardLocation(transform)))
         {
-            //Debug.Log("MOVE DETECTED");
-            locationBoard = board.findBoardLocation(transform);
+            if (gameObject.name == "Wood Block (4)")
+            {
+                //Debug.Log(name + " MOVE DETECTED");
+            }
             board.updateBoard(locationBoard, 0);
-            location.Set(transform.position.x, transform.position.y);
+            if (gameObject.name == "Wood Block (4)")
+            {
+                //Debug.Log(name + " emptyboardPos " + locationBoard.x + " " + locationBoard.y);
+            }
             locationBoard = board.findBoardLocation(transform);
+            location.Set(transform.position.x, transform.position.y);
             board.updateBoard(locationBoard, 1);
+        }
+
+        if(board.locationValue((int)locationBoard.x, (int)locationBoard.y) != 1)
+            board.updateBoard(locationBoard, 1);
+        else
+        {
+            /*if (name == "Wood Block (4)")
+            {
+                Debug.Log("board location " + locationBoard.x + " " + locationBoard.y);
+                board.printLevel();
+            }*/
         }
     }
 

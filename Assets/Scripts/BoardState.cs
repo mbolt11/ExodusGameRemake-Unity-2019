@@ -86,6 +86,7 @@ public class BoardState : MonoBehaviour
     {
         if(boardState == null)
             boardState = this;
+        topLeft = new Vector2(-5.5f, 5.5f);
     }
 
     void Start()
@@ -93,8 +94,6 @@ public class BoardState : MonoBehaviour
         gc = GameController.controller;
         int currLevel = gc.getLevelNum();
         loadCurrectLevel(currLevel);
-
-        topLeft = new Vector2(-5.5f, 5.5f);
     }
 
     public void loadCurrectLevel(int levelNum)
@@ -145,7 +144,7 @@ public class BoardState : MonoBehaviour
         }
     }
 
-    void printLevel()
+    public void printLevel()
     {
         string levelString = "";
 
@@ -165,6 +164,11 @@ public class BoardState : MonoBehaviour
     public Vector2 findBoardLocation(Transform other)
     {
         //find the row
+        if (other.gameObject.name == "Wood Block (4)")
+        {
+            //Debug.Log("calc col: " + Mathf.Abs(other.position.x - topLeft.x));
+            //Debug.Log("calc row: " + Mathf.Abs(other.position.y - topLeft.y));
+        }
         int other_col = Mathf.RoundToInt(Mathf.Abs(other.position.x - topLeft.x));
         int other_row = Mathf.RoundToInt(Mathf.Abs(other.position.y - topLeft.y));
         //Debug.Log("ROW:" + other_row + " COL:" + other_col);
@@ -176,6 +180,6 @@ public class BoardState : MonoBehaviour
         board[(int)location.x, (int)location.y] = value;
         //Debug.Log("UPDATED BOARD");
         //Debug.Log(board);
-        //printLevel();
+        printLevel();
     }
 }

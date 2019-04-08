@@ -5,11 +5,13 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int health;
-    
+    private BoardState boardState;
+
     // Start is called before the first frame update
     void Start()
     {
         health = 3;
+        boardState = BoardState.boardState;
     }
 
     //When the enemy is hit by a spoken word, it takes 3 to die
@@ -21,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (health == 0)
         {
+            boardState.updateBoard(boardState.findBoardLocation(transform), 0);
             Destroy(gameObject);
             GameController.controller.addPoints(100);
         }
