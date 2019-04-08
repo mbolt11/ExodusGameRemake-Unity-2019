@@ -9236,6 +9236,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6365252108825495945, guid: 7b29e57c60f306644b9c3fd8059a2aa4,
+        type: 3}
+      propertyPath: treasure
+      value: 
+      objectReference: {fileID: 2119356915}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b29e57c60f306644b9c3fd8059a2aa4, type: 3}
 --- !u!4 &1399851942 stripped
@@ -14399,7 +14404,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
   Moses: {fileID: 0}
+  levelcontrol: {fileID: 0}
   wordsAtOnce: 0
+  wordLifeTime: 0
 --- !u!4 &1906794192
 Transform:
   m_ObjectHideFlags: 0

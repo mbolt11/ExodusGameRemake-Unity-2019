@@ -90,16 +90,19 @@ public class LevelControl : MonoBehaviour
     //When you collect manna
     public void addManna()
     {
-        //Add to the manna count and add 100 points
-        manna++;
-        GameController.controller.addPoints(100);
+        if(manna < mannaQuota)
+        {
+            //Add to the manna count and add 100 points
+            manna++;
+            GameController.controller.addPoints(100);
 
-        //Update the canvas
-        canvas.GetComponent<StatBoard>().UpdateManna();
-        canvas.GetComponent<StatBoard>().UpdateScore();
+            //Update the canvas
+            canvas.GetComponent<StatBoard>().UpdateManna();
+            canvas.GetComponent<StatBoard>().UpdateScore();
 
-        if (manna >= mannaQuota)
-            mannaQuotaMet = true;
+            if (manna >= mannaQuota)
+                mannaQuotaMet = true;
+        }
     }
 
     //When you collect treasure (equal to question boxes in DOS game)
