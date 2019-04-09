@@ -6268,7 +6268,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: ebe88550c55b05e43bee2efaa0c0611d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -11306,7 +11306,12 @@ PrefabInstance:
         type: 3}
       propertyPath: treasure
       value: 
-      objectReference: {fileID: 1002144757}
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316166948758429491, guid: 7b29e57c60f306644b9c3fd8059a2aa4,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b29e57c60f306644b9c3fd8059a2aa4, type: 3}
 --- !u!4 &1455592033 stripped

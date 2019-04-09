@@ -9240,7 +9240,12 @@ PrefabInstance:
         type: 3}
       propertyPath: treasure
       value: 
-      objectReference: {fileID: 2119356915}
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316166948758429491, guid: 7b29e57c60f306644b9c3fd8059a2aa4,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b29e57c60f306644b9c3fd8059a2aa4, type: 3}
 --- !u!4 &1399851942 stripped
@@ -15713,11 +15718,6 @@ PrefabInstance:
     - target: {fileID: 7725706630416539402, guid: b5151315870a04a40994d598e277b3cc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7725706630416539403, guid: b5151315870a04a40994d598e277b3cc,
-        type: 3}
-      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
