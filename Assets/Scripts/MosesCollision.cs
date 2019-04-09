@@ -71,6 +71,7 @@ public class MosesCollision : MonoBehaviour
         if(other.gameObject.tag == "Finish")
         {
             //Stop the clock and load next level
+            Destroy(other.gameObject);
             levelControl.GetComponent<LevelControl>().AtFinish();
             GameController.controller.LoadNextLevel();
         }
@@ -96,13 +97,6 @@ public class MosesCollision : MonoBehaviour
 
             invincible = true;
             canvas.GetComponent<StatBoard>().InvincibleImageOnOff();
-
-            /*Turn off the colliders of all the enemies so Moses can go through them
-            enemies = GameObject.FindGameObjectsWithTag("Soldier");
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                enemies[i].GetComponent<BoxCollider2D>().enabled = false;
-            }*/
 
             //Start the coroutine to end invincibility after 20 sec
             StartCoroutine(Invinsibility());
