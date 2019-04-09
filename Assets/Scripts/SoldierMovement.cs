@@ -55,6 +55,8 @@ public class SoldierMovement : MonoBehaviour
         //if location = destination, search for next destination and begin movement
         if(reachedDestination(destination))
         {
+            if (name.Equals("Enemy (4)"))
+                Debug.Log("Reached destination " + destination.x + " " + destination.y);
             //change locationBoard
             locationBoard.Set(destinationBoard.x, destinationBoard.y);
 
