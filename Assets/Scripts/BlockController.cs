@@ -21,7 +21,7 @@ public class BlockController : MonoBehaviour
         if (tag.Equals("Wood Block"))
         {
             health--;
-            Debug.Log("Lost health");
+            //Debug.Log("Lost health");
         }
     }
 

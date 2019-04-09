@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
         //Initialize variables at beginning of game
         MosesLives = 5;
         points = 0;
-        currentLevel = 2;
+        currentLevel = 1;
         currentSceneNum = SceneManager.GetActiveScene().buildIndex;
         wordsAtOnce = 1;
         wordLifeTime = .3f;
@@ -103,6 +103,23 @@ public class GameController : MonoBehaviour
         wordsAtOnce = 1;
         MosesDead = true;
         Moses.GetComponent<MosesMovement>().enabled = false;
+        GameObject[] enemy = GameObject.FindGameObjectsWithTag("Soldier");
+        for(int i = 0; i < enemy.Length; i++)
+        {
+            enemy[i].GetComponent<SoldierMovement>().enabled = false;
+        }
+        GameObject[] woods = GameObject.FindGameObjectsWithTag("Wood Block");
+        for (int i = 0; i < woods.Length; i++)
+        {
+            woods[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            woods[i].GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
+        GameObject[] blues = GameObject.FindGameObjectsWithTag("Blue Block");
+        for (int i = 0; i < blues.Length; i++)
+        {
+            blues[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            blues[i].GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
         MosesLives--;
         canvas.GetComponent<StatBoard>().UpdateLives();
 
@@ -115,6 +132,15 @@ public class GameController : MonoBehaviour
         else
         {
             canvas.GetComponent<StatBoard>().UpdateMessage("Game Over!!");
+            currentLevel = 1;
+            currentSceneNum = 0;
+
+            MosesLives = 5;
+            points = 0;
+            wordsAtOnce = 1;
+            wordLifeTime = .3f;
+
+            StartCoroutine(ReloadSceneOnDeath());
         }
     }
 
