@@ -168,15 +168,25 @@ public class GameController : MonoBehaviour
     //Coroutine to be called when completing a level to move on to the next
     public void LoadNextLevel()
     {
-        StartCoroutine(WaitToLoad());
+        if(currentLevel == 5)
+        {
+            canvas.GetComponent<StatBoard>().UpdateMessage("You win!");
+            currentLevel = 1;
+            currentSceneNum = 0;
+            StartCoroutine(WaitToLoad());
+        }
+        else
+        {
+            currentLevel++;
+            currentSceneNum++;
+            StartCoroutine(WaitToLoad());
+        }
     }
 
     public IEnumerator WaitToLoad()
     {
         yield return new WaitForSeconds(2);
         Debug.Log("should be loading next level");
-        currentLevel++;
-        currentSceneNum++;
         SceneManager.LoadScene(currentSceneNum);
     }
 }
